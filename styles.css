@@ -63,6 +63,8 @@ button {
   background:
     linear-gradient(90deg, rgb(122 99 73 / 8%) 1px, transparent 1px) 50% / 25% 100%,
     linear-gradient(#f4efe7, #e8ded0);
+  transform: scale(1.035);
+  transition: transform 1.7s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .showcase__glow {
@@ -153,6 +155,7 @@ button {
   pointer-events: none;
   color: #504439;
   text-shadow: 0 1px 18px rgb(255 255 255 / 70%);
+  transition: opacity 700ms ease, transform 900ms ease;
 }
 
 .brand__eyebrow {
@@ -172,6 +175,7 @@ button {
   padding: 0;
   cursor: pointer;
   background: transparent;
+  transition: visibility 0s linear 1.4s;
 }
 
 .entrance__hint {
@@ -191,6 +195,7 @@ button {
   width: 50.5%;
   overflow: hidden;
   filter: drop-shadow(0 0 1.6rem rgb(74 48 36 / 20%));
+  transition: transform 1.7s cubic-bezier(0.68, 0, 0.22, 1);
 }
 
 .curtain--right {
@@ -234,6 +239,31 @@ button {
   transform: rotateY(calc(var(--pointer-x) * -0.7deg)) skewY(calc(var(--pointer-y) * -0.18deg));
 }
 
+.is-open .showcase {
+  transform: scale(1);
+}
+
+.is-open .brand {
+  opacity: 0;
+  transform: scale(1.03);
+}
+
+.is-open .entrance {
+  visibility: hidden;
+}
+
+.is-open .curtain--left {
+  transform: translateX(-88%) rotate(-0.5deg);
+}
+
+.is-open .curtain--right {
+  transform: translateX(88%) rotate(0.5deg);
+}
+
+.is-open .curtain__fabric {
+  transition-duration: 700ms;
+}
+
 @keyframes breathe {
   0%, 100% { opacity: 0.52; translate: -50% 0; }
   50% { opacity: 0.9; translate: -50% -0.2rem; }
@@ -247,5 +277,28 @@ button {
 
   .brand h1 {
     font-size: clamp(4rem, 22vw, 6rem);
+  }
+
+  .curtain__fabric {
+    transform: none;
+  }
+
+  .is-open .curtain--left {
+    transform: translateX(-91%);
+  }
+
+  .is-open .curtain--right {
+    transform: translateX(91%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
