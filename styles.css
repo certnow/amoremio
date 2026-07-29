@@ -228,15 +228,23 @@ button {
   transform: rotateY(calc(var(--pointer-x) * 0.7deg)) skewY(calc(var(--pointer-y) * 0.18deg));
   transform-origin: top center;
   transition: transform 180ms ease-out;
+  background-size: 118% 100%, 100% 100%;
+  animation: silk-air-left 7.4s ease-in-out infinite alternate;
+  will-change: clip-path, background-position;
 }
 
 .curtain--left .curtain__fabric {
   border-radius: 0 0 42% 0 / 0 0 4% 0;
+  clip-path: polygon(0 0, 100% 0, 99.2% 22%, 98.1% 54%, 99.1% 78%, 97.9% 100%, 0 100%);
 }
 
 .curtain--right .curtain__fabric {
   border-radius: 0 0 0 42% / 0 0 0 4%;
   transform: rotateY(calc(var(--pointer-x) * -0.7deg)) skewY(calc(var(--pointer-y) * -0.18deg));
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 2.1% 100%, 0.9% 78%, 1.9% 54%, 0.8% 22%);
+  animation-name: silk-air-right;
+  animation-duration: 8.1s;
+  animation-delay: -3.2s;
 }
 
 .is-open .showcase {
@@ -269,6 +277,28 @@ button {
   50% { opacity: 0.9; translate: -50% -0.2rem; }
 }
 
+@keyframes silk-air-left {
+  0%, 100% {
+    clip-path: polygon(0 0, 100% 0, 99.2% 22%, 98.1% 54%, 99.1% 78%, 97.9% 100%, 0 100%);
+    background-position: 48% 0, 0 0;
+  }
+  45% {
+    clip-path: polygon(0 0, 100% 0, 98.5% 22%, 99.1% 54%, 97.8% 78%, 99% 100%, 0 100%);
+    background-position: 52% 0, 0 0;
+  }
+}
+
+@keyframes silk-air-right {
+  0%, 100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 2.1% 100%, 0.9% 78%, 1.9% 54%, 0.8% 22%);
+    background-position: 52% 0, 0 0;
+  }
+  55% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 1% 100%, 2.2% 78%, 0.9% 54%, 1.6% 22%);
+    background-position: 47% 0, 0 0;
+  }
+}
+
 @media (max-width: 700px) {
   .showcase__niche {
     width: 88vw;
@@ -281,6 +311,7 @@ button {
 
   .curtain__fabric {
     transform: none;
+    animation-duration: 9s;
   }
 
   .is-open .curtain--left {
