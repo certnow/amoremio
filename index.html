@@ -18,15 +18,61 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <svg class="silk-filters" aria-hidden="true">
+      <filter id="silk-wave-left" x="-8%" y="-5%" width="116%" height="110%">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.006 0.018"
+          numOctaves="2"
+          seed="7"
+          result="noise"
+        >
+          <animate
+            attributeName="baseFrequency"
+            dur="11s"
+            values="0.006 0.018;0.009 0.024;0.006 0.018"
+            repeatCount="indefinite"
+          />
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="12" xChannelSelector="R" yChannelSelector="B">
+          <animate attributeName="scale" dur="8s" values="9;15;10;13;9" repeatCount="indefinite" />
+        </feDisplacementMap>
+      </filter>
+      <filter id="silk-wave-right" x="-8%" y="-5%" width="116%" height="110%">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.007 0.02"
+          numOctaves="2"
+          seed="13"
+          result="noise"
+        >
+          <animate
+            attributeName="baseFrequency"
+            dur="13s"
+            values="0.007 0.02;0.005 0.026;0.007 0.02"
+            repeatCount="indefinite"
+          />
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="11" xChannelSelector="B" yChannelSelector="R">
+          <animate attributeName="scale" dur="9s" values="10;14;9;12;10" repeatCount="indefinite" />
+        </feDisplacementMap>
+      </filter>
+    </svg>
+
     <main class="storefront" aria-label="Entrada da Amoremio">
       <section class="showcase" aria-hidden="true">
         <div class="showcase__glow"></div>
-        <div class="showcase__niche">
-          <div class="showcase__shelf">
-            <div class="display display--tall"></div>
-            <div class="display display--center"></div>
-            <div class="display display--small"></div>
+        <div class="showcase__arch">
+          <div class="showcase__niche">
+            <span class="niche__sun"></span>
+            <span class="niche__branch"></span>
+            <div class="showcase__shelf">
+              <div class="display display--tall"></div>
+              <div class="display display--center"></div>
+              <div class="display display--small"></div>
+            </div>
           </div>
+          <div class="showcase__tile" aria-hidden="true"></div>
         </div>
       </section>
 
@@ -45,10 +91,10 @@
       </button>
 
       <div class="curtain curtain--left" aria-hidden="true">
-        <div class="curtain__fabric"></div>
+        <div class="curtain__fabric"><span class="curtain__light"></span></div>
       </div>
       <div class="curtain curtain--right" aria-hidden="true">
-        <div class="curtain__fabric"></div>
+        <div class="curtain__fabric"><span class="curtain__light"></span></div>
       </div>
     </main>
 
