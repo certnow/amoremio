@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4efe7" />
+    <meta
+      name="description"
+      content="Amoremio — pequenos objetos, grandes afetos."
+    />
+    <title>Amoremio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="storefront" aria-label="Entrada da Amoremio">
+      <section class="showcase" aria-hidden="true">
+        <div class="showcase__glow"></div>
+        <div class="showcase__niche">
+          <div class="showcase__shelf">
+            <div class="display display--tall"></div>
+            <div class="display display--center"></div>
+            <div class="display display--small"></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="brand" aria-hidden="true">
+        <span class="brand__eyebrow">atelier de afetos</span>
+        <h1>Amoremio</h1>
+      </div>
+
+      <button class="entrance" type="button" aria-label="Abrir a vitrine Amoremio">
+        <span class="entrance__hint">Toque para entrar</span>
+      </button>
+
+      <div class="curtain curtain--left" aria-hidden="true">
+        <div class="curtain__fabric"></div>
+      </div>
+      <div class="curtain curtain--right" aria-hidden="true">
+        <div class="curtain__fabric"></div>
+      </div>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
