@@ -1,0 +1,27 @@
+@media (max-width: 760px) {
+  .showcase__arch { width: 88vw; height: 65vh; }
+  .site-header { grid-template-columns: 1fr auto; padding: 1.1rem 1.2rem; }
+  .site-header nav { order: 3; grid-column: 1 / -1; justify-content: center; padding-top: 0.45rem; }
+  .site-header__stage { font-size: 0; }
+  .site-header__stage::after { content: "Projeto"; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.12em; }
+  .reveal-copy { top: 53%; }
+  .reveal-copy h1 { font-size: clamp(4rem, 22vw, 6rem); }
+  .reveal-copy p { max-width: 19rem; padding-inline: 1rem; }
+  .curtain--left .curtain__fabric, .curtain--right .curtain__fabric { filter: none; transform: none; animation-duration: 11s; }
+  .is-open .curtain--left { transform: translateX(-86%) scaleX(0.9); }
+  .is-open .curtain--right { transform: translateX(86%) scaleX(0.9); }
+  .store-intro { grid-template-columns: 1fr; padding: 5rem 1.4rem; }
+  .editorial-preview { min-height: 32rem; }
+}
+
+@media (max-width: 480px) {
+  .site-header nav { gap: 1rem; font-size: 0.58rem; }
+  .editorial-preview { grid-template-columns: 1fr; }
+  .editorial-scene { min-height: 20rem; }
+  .editorial-scene--details { margin-top: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .curtain__fabric { filter: none !important; }
+}

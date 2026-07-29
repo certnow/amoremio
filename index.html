@@ -3,55 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f4efe7" />
-    <meta
-      name="description"
-      content="Amoremio — pequenos objetos, grandes afetos."
-    />
+    <meta name="theme-color" content="#f3ecdf" />
+    <meta name="description" content="Amoremio — presentes e acessórios escolhidos com afeto." />
     <title>Amoremio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/curtain.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
   </head>
   <body>
+    <a class="skip-link" href="#inicio-loja">Ir para a loja</a>
+
     <svg class="silk-filters" aria-hidden="true">
       <filter id="silk-wave-left" x="-8%" y="-5%" width="116%" height="110%">
-        <feTurbulence
-          type="fractalNoise"
-          baseFrequency="0.006 0.018"
-          numOctaves="2"
-          seed="7"
-          result="noise"
-        >
-          <animate
-            attributeName="baseFrequency"
-            dur="11s"
-            values="0.006 0.018;0.009 0.024;0.006 0.018"
-            repeatCount="indefinite"
-          />
+        <feTurbulence type="fractalNoise" baseFrequency="0.006 0.018" numOctaves="2" seed="7" result="noise">
+          <animate attributeName="baseFrequency" dur="11s" values="0.006 0.018;0.009 0.024;0.006 0.018" repeatCount="indefinite" />
         </feTurbulence>
         <feDisplacementMap in="SourceGraphic" in2="noise" scale="12" xChannelSelector="R" yChannelSelector="B">
           <animate attributeName="scale" dur="8s" values="9;15;10;13;9" repeatCount="indefinite" />
         </feDisplacementMap>
       </filter>
       <filter id="silk-wave-right" x="-8%" y="-5%" width="116%" height="110%">
-        <feTurbulence
-          type="fractalNoise"
-          baseFrequency="0.007 0.02"
-          numOctaves="2"
-          seed="13"
-          result="noise"
-        >
-          <animate
-            attributeName="baseFrequency"
-            dur="13s"
-            values="0.007 0.02;0.005 0.026;0.007 0.02"
-            repeatCount="indefinite"
-          />
+        <feTurbulence type="fractalNoise" baseFrequency="0.007 0.02" numOctaves="2" seed="13" result="noise">
+          <animate attributeName="baseFrequency" dur="13s" values="0.007 0.02;0.005 0.026;0.007 0.02" repeatCount="indefinite" />
         </feTurbulence>
         <feDisplacementMap in="SourceGraphic" in2="noise" scale="11" xChannelSelector="B" yChannelSelector="R">
           <animate attributeName="scale" dur="9s" values="10;14;9;12;10" repeatCount="indefinite" />
@@ -59,45 +36,78 @@
       </filter>
     </svg>
 
-    <main class="storefront" aria-label="Entrada da Amoremio">
-      <section class="showcase" aria-hidden="true">
-        <div class="showcase__glow"></div>
-        <div class="showcase__arch">
-          <div class="showcase__niche">
-            <span class="niche__sun"></span>
-            <span class="niche__branch"></span>
-            <div class="showcase__shelf">
-              <div class="display display--tall"></div>
-              <div class="display display--center"></div>
-              <div class="display display--small"></div>
+    <main>
+      <section class="storefront" aria-label="Entrada da Amoremio">
+        <div class="showcase" aria-hidden="true">
+          <div class="showcase__glow"></div>
+          <div class="showcase__arch">
+            <div class="showcase__niche">
+              <span class="niche__sun"></span>
+              <span class="niche__branch"></span>
+              <div class="showcase__shelf">
+                <div class="display display--tall"></div>
+                <div class="display display--center"></div>
+                <div class="display display--small"></div>
+              </div>
             </div>
+            <div class="showcase__tile"></div>
           </div>
-          <div class="showcase__tile" aria-hidden="true"></div>
+        </div>
+
+        <header class="site-header">
+          <a class="site-header__logo" href="#top" aria-label="Amoremio, início">Amoremio</a>
+          <nav aria-label="Navegação principal">
+            <a href="#inicio-loja">Coleção</a>
+            <span aria-disabled="true" title="Disponível em uma próxima etapa">Novidades</span>
+            <span aria-disabled="true" title="Disponível em uma próxima etapa">Presentes</span>
+          </nav>
+          <span class="site-header__stage">Primeira coleção em breve</span>
+        </header>
+
+        <div class="reveal-copy">
+          <span class="reveal-copy__eyebrow">objetos escolhidos com afeto</span>
+          <h1>Amoremio</h1>
+          <p>Uma boutique de pequenos detalhes, presentes e memórias.</p>
+          <a class="button" href="#inicio-loja">Conheça a coleção</a>
+        </div>
+
+        <div class="curtain-brand" aria-hidden="true">
+          <span>atelier de afetos</span>
+          <strong>Amoremio</strong>
+        </div>
+
+        <button class="entrance" type="button" aria-label="Abrir as cortinas e entrar na Amoremio" aria-expanded="false">
+          <span>Toque para entrar</span>
+        </button>
+
+        <div class="curtain curtain--left" aria-hidden="true">
+          <div class="curtain__fabric"><span class="curtain__light"></span></div>
+        </div>
+        <div class="curtain curtain--right" aria-hidden="true">
+          <div class="curtain__fabric"><span class="curtain__light"></span></div>
         </div>
       </section>
 
-      <div class="brand" aria-hidden="true">
-        <span class="brand__eyebrow">atelier de afetos</span>
-        <h1>Amoremio</h1>
-      </div>
-
-      <button
-        class="entrance"
-        type="button"
-        aria-label="Abrir a vitrine Amoremio"
-        aria-expanded="false"
-      >
-        <span class="entrance__hint">Toque para entrar</span>
-      </button>
-
-      <div class="curtain curtain--left" aria-hidden="true">
-        <div class="curtain__fabric"><span class="curtain__light"></span></div>
-      </div>
-      <div class="curtain curtain--right" aria-hidden="true">
-        <div class="curtain__fabric"><span class="curtain__light"></span></div>
-      </div>
+      <section class="store-intro" id="inicio-loja" aria-labelledby="store-intro-title">
+        <div class="store-intro__copy">
+          <span class="eyebrow">A loja começa aqui</span>
+          <h2 id="store-intro-title">Presentes que guardam histórias.</h2>
+          <p>Esta é a primeira área da futura loja Amoremio. As coleções e os produtos serão adicionados na próxima etapa.</p>
+        </div>
+        <div class="editorial-preview" aria-label="Prévia das futuras coleções">
+          <article class="editorial-scene editorial-scene--gifts">
+            <span>Em preparação</span>
+            <h3>Presentes</h3>
+          </article>
+          <article class="editorial-scene editorial-scene--details">
+            <span>Em preparação</span>
+            <h3>Pequenos detalhes</h3>
+          </article>
+        </div>
+      </section>
     </main>
 
-    <script src="app.js"></script>
+    <noscript><p class="noscript">Ative o JavaScript para abrir a cortina. A área inicial da loja continua disponível abaixo.</p></noscript>
+    <script type="module" src="js/app.js"></script>
   </body>
 </html>
