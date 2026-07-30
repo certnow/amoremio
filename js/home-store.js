@@ -14,7 +14,7 @@ const displayType = (product, index) => {
   const slug = product.categories?.slug || "";
   if (slug.includes("brinco")) return "earring";
   if (slug.includes("pulseira")) return "bracelet";
-  if (slug.includes("anel")) return "ring";
+  if (slug.includes("anel") || slug.includes("anei")) return "ring";
   if (slug.includes("presilha")) return "niche";
   if (slug.includes("inox")) return "shelf";
   return ["niche", "shelf", "tray"][index % 3];
