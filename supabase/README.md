@@ -11,8 +11,11 @@ As migrações `001` a `004` foram aplicadas ao projeto remoto em 29 de julho de
 3. `003_storage.sql`
 4. `004_create_order_function.sql`
 5. `005_bootstrap_admin.sql`
+6. `006_seed_removable_boutique_preview.sql` — três produtos temporários para validar a exposição visual
 
 Não reaplique manualmente arquivos já registrados no histórico remoto. Mudanças futuras devem ser criadas como novas migrações. Não use a chave `service_role` no navegador, no repositório ou em arquivos do frontend.
+
+Os produtos cujo slug começa com `teste-boutique-` são temporários. Para removê-los, use o painel administrativo ou execute `tests/remove_boutique_preview.sql`.
 
 ## Primeiro administrador
 
