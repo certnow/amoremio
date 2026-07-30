@@ -1,5 +1,5 @@
 import { cartCount } from "./cart.js";
-import { initHouseMusic } from "./music.js?v=20260730-1";
+import { initHouseMusic } from "./music.js?v=20260730-2";
 
 export function updateCartBadges() { document.querySelectorAll("[data-cart-count]").forEach((node) => { node.textContent = cartCount(); }); }
 export function initStoreShell() {

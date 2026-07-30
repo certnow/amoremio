@@ -2,7 +2,25 @@ import { supabase } from "./supabase-client.js";
 import { escapeHtml } from "./utils.js";
 
 const STATE_KEY = "amoremio:house-music-state";
+const CONFIG_CHANGE_KEY = "amoremio:house-music-config-change";
 const HOME_FILE = /(?:^|\/)index\.html$|\/$/;
+let spotifyApiPromise;
+
+function loadSpotifyIframeApi() {
+  if (spotifyApiPromise) return spotifyApiPromise;
+  spotifyApiPromise = new Promise((resolve, reject) => {
+    const previousReady = window.onSpotifyIframeApiReady;
+    window.onSpotifyIframeApiReady = (IFrameAPI) => { previousReady?.(IFrameAPI); resolve(IFrameAPI); };
+    if (document.querySelector('script[data-spotify-iframe-api]')) return;
+    const script = document.createElement("script");
+    script.src = "https://open.spotify.com/embed/iframe-api/v1";
+    script.async = true;
+    script.dataset.spotifyIframeApi = "";
+    script.addEventListener("error", () => reject(new Error("Não foi possível carregar o player do Spotify.")), { once: true });
+    document.body.append(script);
+  });
+  return spotifyApiPromise;
+}
 
 function spotifyEmbed(url) {
   try {
@@ -47,11 +65,38 @@ export async function initHouseMusic() {
     </section>`;
   document.body.append(root);
   const panel = root.querySelector("[data-music-panel]"), toggle = root.querySelector("[data-music-toggle]"), embed = root.querySelector("[data-music-embed]");
-  let loaded = false;
-  const open = () => { panel.hidden = false; toggle.setAttribute("aria-expanded", "true"); localStorage.setItem(STATE_KEY, "open"); if (validEmbed && !loaded) { embed.innerHTML = `<iframe src="${validEmbed}" title="Player oficial do Spotify: ${escapeHtml(settings.music_title)}" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>`; loaded = true; } };
+  let loaded = false, EmbedController = null, disposed = false;
+  const pause = () => { try { EmbedController?.pause(); } catch (error) { console.warn("Não foi possível pausar o Spotify.", error); } };
+  const onVisibilityChange = () => { if (document.visibilityState === "hidden") pause(); };
+  const onPageHide = () => pause();
+  const cleanup = () => { disposed = true; document.removeEventListener("visibilitychange", onVisibilityChange); window.removeEventListener("pagehide", onPageHide); window.removeEventListener("beforeunload", onPageHide); window.removeEventListener("storage", onConfigurationChange); };
+  const onConfigurationChange = (event) => { if (event.key !== CONFIG_CHANGE_KEY) return; pause(); try { EmbedController?.destroy(); } catch {} cleanup(); root.remove(); initHouseMusic(); };
+  document.addEventListener("visibilitychange", onVisibilityChange);
+  window.addEventListener("pagehide", onPageHide);
+  window.addEventListener("beforeunload", onPageHide);
+  window.addEventListener("storage", onConfigurationChange);
+  const open = async () => {
+    panel.hidden = false;
+    toggle.setAttribute("aria-expanded", "true");
+    localStorage.setItem(STATE_KEY, "open");
+    if (!validEmbed || loaded) return;
+    loaded = true;
+    embed.innerHTML = '<div data-spotify-controller></div>';
+    try {
+      const IFrameAPI = await loadSpotifyIframeApi();
+      if (disposed || !root.isConnected) return;
+      IFrameAPI.createController(embed.querySelector("[data-spotify-controller]"), { url: settings.music_spotify_url, width: "100%", height: 152 }, (controller) => {
+        EmbedController = controller;
+        if (document.visibilityState === "hidden" || disposed) pause();
+      });
+    } catch (error) {
+      loaded = false;
+      embed.innerHTML = `<div class="house-music__preparing">${escapeHtml(error.message)}</div>`;
+    }
+  };
   const minimize = () => { panel.hidden = true; toggle.setAttribute("aria-expanded", "false"); localStorage.setItem(STATE_KEY, "minimized"); toggle.focus(); };
   toggle.addEventListener("click", () => panel.hidden ? open() : minimize());
   root.querySelector("[data-music-minimize]").addEventListener("click", minimize);
-  root.querySelector("[data-music-close]").addEventListener("click", () => { localStorage.setItem(STATE_KEY, "closed"); root.remove(); });
+  root.querySelector("[data-music-close]").addEventListener("click", () => { pause(); localStorage.setItem(STATE_KEY, "closed"); cleanup(); root.remove(); });
   if (state === "open") open();
 }
