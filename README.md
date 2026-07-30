@@ -2,7 +2,7 @@
 
 Loja virtual estática publicada no GitHub Pages, com catálogo, administração e pedidos conectados ao Supabase.
 
-> A entrada e a fachada da home usam provisoriamente `assets/images/casa-amoremio-entrada-provisoria.png` e `assets/images/fachada-amoremio-provisoria.png`. Elas serão trocadas pelas versões limpas quando forem fornecidas.
+> A entrada e a fachada usam fundos limpos derivados das referências oficiais, sem textos, botões, logotipos ou produtos fictícios incorporados. Toda a interface permanece em HTML real.
 
 ## O que funciona
 
