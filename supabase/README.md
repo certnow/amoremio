@@ -13,6 +13,8 @@ As migrações `001` a `004` foram aplicadas ao projeto remoto em 29 de julho de
 5. `005_bootstrap_admin.sql`
 6. `006_seed_removable_boutique_preview.sql` — três produtos temporários para validar a exposição visual
 7. `007_product_image_gallery.sql` — galeria múltipla, imagem principal, Storage privado e vínculo de variação
+8. `008_fix_product_storage_read.sql` — leitura temporária restrita às imagens de produtos ativos
+9. `009_secure_product_image_access.sql` — verificação segura entre arquivo, imagem cadastrada e produto ativo
 
 A migração 007 preserva as imagens existentes, identifica a primeira como principal,
 adiciona ordenação segura e transforma o bucket de produtos em privado. A loja gera
