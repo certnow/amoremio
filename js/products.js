@@ -9,7 +9,7 @@ export async function resolveProductImages(products) {
   if (!paths.length) return products;
   const { data, error } = await supabase.storage.from("product-images").createSignedUrls(paths, 3600);
   if (error) throw error;
-  const signedByPath = new Map((data || []).filter((item) => item.signedUrl).map((item) => [item.path, item.signedUrl]));
+  const signedByPath = new Map((data || []).flatMap((item, index) => item.signedUrl ? [[item.path || paths[index], item.signedUrl]] : []));
   list.forEach((product) => {
     (product?.product_images || []).forEach((image) => {
       if (image.storage_path && signedByPath.has(image.storage_path)) image.image_url = signedByPath.get(image.storage_path);

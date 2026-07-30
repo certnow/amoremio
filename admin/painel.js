@@ -1,7 +1,7 @@
 import { supabase } from "../js/supabase-client.js";
 import { escapeHtml, money } from "../js/utils.js";
 import { ProductGalleryEditor } from "./gallery.js";
-import { resolveProductImages } from "../js/products.js?v=20260730-2";
+import { resolveProductImages } from "../js/products.js?v=20260730-3";
 
 const globalMessage=document.querySelector("[data-global-message]");let categories=[],products=[];
 const say=(text)=>{globalMessage.textContent=text;setTimeout(()=>{if(globalMessage.textContent===text)globalMessage.textContent=""},5000)};
