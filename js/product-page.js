@@ -1,7 +1,7 @@
 import { addToCart } from "./cart.js";
 import { loadProduct } from "./products.js?v=20260730-3";
 import { escapeHtml, money, productPrice } from "./utils.js";
-import { initStoreShell } from "./store-shell.js?v=20260730-4";
+import { initStoreShell } from "./store-shell.js?v=20260730-5";
 
 initStoreShell();
 const root = document.querySelector("[data-product-detail]");

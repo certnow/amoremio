@@ -1,6 +1,6 @@
 import { loadCategories, loadProducts, productCard } from "./products.js?v=20260730-3";
 import { debounce, escapeHtml } from "./utils.js";
-import { initStoreShell } from "./store-shell.js?v=20260730-4";
+import { initStoreShell } from "./store-shell.js?v=20260730-5";
 
 initStoreShell();
 const grid = document.querySelector("[data-product-grid]"); const status = document.querySelector("[data-catalog-status]");
