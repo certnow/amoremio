@@ -1,6 +1,8 @@
 # Configuração do Supabase
 
-Projeto esperado: `twasjpafmgiaevfoapzc`.
+Projeto vinculado: `twasjpafmgiaevfoapzc`.
+
+As migrações `001` a `004` foram aplicadas ao projeto remoto em 29 de julho de 2026 e registradas no histórico de migrações do Supabase.
 
 ## Ordem das migrações
 
@@ -9,7 +11,7 @@ Projeto esperado: `twasjpafmgiaevfoapzc`.
 3. `003_storage.sql`
 4. `004_create_order_function.sql`
 
-Execute cada arquivo separadamente no SQL Editor do Supabase e interrompa se ocorrer qualquer erro. Não use a chave `service_role` no navegador, no repositório ou em arquivos do frontend.
+Não reaplique manualmente arquivos já registrados no histórico remoto. Mudanças futuras devem ser criadas como novas migrações. Não use a chave `service_role` no navegador, no repositório ou em arquivos do frontend.
 
 ## Primeiro administrador
 
