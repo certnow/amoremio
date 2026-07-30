@@ -2,7 +2,7 @@
 
 Projeto vinculado: `twasjpafmgiaevfoapzc`.
 
-As migrações `001` a `004` foram aplicadas ao projeto remoto em 29 de julho de 2026 e registradas no histórico de migrações do Supabase.
+As migrações `001` a `004` foram aplicadas ao projeto remoto em 29 de julho de 2026 e registradas no histórico de migrações do Supabase. A migração `005` associa o primeiro usuário administrativo criado no Supabase Auth.
 
 ## Ordem das migrações
 
@@ -10,6 +10,7 @@ As migrações `001` a `004` foram aplicadas ao projeto remoto em 29 de julho de
 2. `002_rls_policies.sql`
 3. `003_storage.sql`
 4. `004_create_order_function.sql`
+5. `005_bootstrap_admin.sql`
 
 Não reaplique manualmente arquivos já registrados no histórico remoto. Mudanças futuras devem ser criadas como novas migrações. Não use a chave `service_role` no navegador, no repositório ou em arquivos do frontend.
 
