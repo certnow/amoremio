@@ -1,5 +1,5 @@
 import { addToCart } from "./cart.js";
-import { loadProduct } from "./products.js";
+import { loadProduct } from "./products.js?v=20260730-2";
 import { escapeHtml, money, productPrice } from "./utils.js";
 import { initStoreShell } from "./store-shell.js";
 

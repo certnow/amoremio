@@ -1,4 +1,4 @@
-import { loadCategories, loadProducts, productCard } from "./products.js";
+import { loadCategories, loadProducts, productCard } from "./products.js?v=20260730-2";
 import { debounce, escapeHtml } from "./utils.js";
 import { initStoreShell } from "./store-shell.js";
 
