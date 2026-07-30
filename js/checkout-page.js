@@ -2,7 +2,7 @@ import { CONFIG } from "./config.js";
 import { clearCart, getCart, removeCartItem, updateCartItem, cartSubtotal } from "./cart.js";
 import { supabase } from "./supabase-client.js";
 import { escapeHtml, money } from "./utils.js";
-import { initStoreShell } from "./store-shell.js";
+import { initStoreShell } from "./store-shell.js?v=20260730-2";
 
 initStoreShell(); const itemsRoot=document.querySelector("[data-cart-items]"), subtotalNode=document.querySelector("[data-subtotal]"), form=document.querySelector("[data-checkout-form]"), result=document.querySelector("[data-checkout-result]");
 function render(){const cart=getCart(); subtotalNode.textContent=money(cartSubtotal()); form.hidden=!cart.length; itemsRoot.innerHTML=cart.length?cart.map(item=>`<article class="cart-item">${item.imageUrl?`<img src="${escapeHtml(item.imageUrl)}" alt="${escapeHtml(item.name)}">`:'<div class="cart-item__empty-image">AM</div>'}<div><h3>${escapeHtml(item.name)}</h3>${item.variantLabel?`<p>${escapeHtml(item.variantLabel)}</p>`:""}<p>${money(item.unitPrice)} cada</p><label class="field">Quantidade<input data-quantity="${escapeHtml(item.key)}" type="number" min="1" max="${item.stock}" value="${item.quantity}"></label><button class="link-button" data-remove="${escapeHtml(item.key)}">Remover</button></div><strong class="cart-item__price">${money(item.unitPrice*item.quantity)}</strong></article>`).join(""):'<div class="empty-state"><h2>Seu carrinho está vazio</h2><p>Escolha uma peça para continuar.</p><a class="button" href="produtos.html">Ver produtos</a></div>';}

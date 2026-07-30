@@ -58,4 +58,11 @@ Na página do produto, a galeria possui miniaturas, setas, ampliação, navegaç
 teclado e gesto horizontal no celular. Imagens novas ficam no bucket privado
 `product-images` e são entregues por links temporários.
 
+## Música da Casa
+
+A barra musical é configurada integralmente no painel administrativo. A loja lê
+do Supabase a ativação, playlist oficial do Spotify, textos, capa, posição, cores,
+transparência e páginas de exibição. O player só é criado quando o painel musical
+é aberto e nunca inicia a reprodução automaticamente.
+
 Os três produtos prefixados com `[TESTE]` validam temporariamente a composição da boutique e podem ser excluídos pelo painel quando os produtos reais forem cadastrados.
