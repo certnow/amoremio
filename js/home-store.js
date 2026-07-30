@@ -1,0 +1,6 @@
+import { loadCategories, loadProducts, productCard } from "./products.js";
+import { escapeHtml } from "./utils.js";
+import { initStoreShell } from "./store-shell.js";
+initStoreShell();
+const categoryRoot=document.querySelector("[data-home-categories]"),productRoot=document.querySelector("[data-home-products]"),status=document.querySelector("[data-home-status]");
+try{const[categories,products]=await Promise.all([loadCategories(),loadProducts({featured:true,limit:8})]);categoryRoot.innerHTML=categories.length?categories.slice(0,6).map((category,index)=>`<a class="home-category home-category--${index%3}" href="produtos.html?categoria=${encodeURIComponent(category.slug)}">${category.image_url?`<img src="${escapeHtml(category.image_url)}" alt="">`:""}<span>Descobrir</span><strong>${escapeHtml(category.name)}</strong></a>`).join(""):'<p class="notice">As categorias aparecerão aqui assim que forem cadastradas no painel.</p>';productRoot.innerHTML=products.length?products.map(productCard).join(""):'<p class="notice">Os produtos em destaque aparecerão aqui automaticamente depois do cadastro.</p>';status.textContent=""}catch(error){console.error(error);status.textContent="Não foi possível carregar a loja agora. Tente novamente em instantes."}

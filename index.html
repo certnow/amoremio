@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/curtain.css" />
     <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/store.css" />
   </head>
   <body id="top">
     <a class="skip-link js-skip-entry" href="#inicio-loja">Pular entrada e ir para a loja</a>
@@ -46,16 +47,16 @@
               <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 5 5"></path></svg>
               <span>Buscar</span>
             </a>
-            <button type="button" disabled aria-label="Conta disponível em uma próxima etapa">
+            <a href="admin/index.html" aria-label="Área administrativa">
               <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"></circle><path d="M4 22c0-5 3-8 8-8s8 3 8 8"></path></svg>
-            </button>
+            </a>
             <button type="button" disabled aria-label="Favoritos disponíveis em uma próxima etapa">
               <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"></path></svg>
             </button>
-            <button type="button" disabled aria-label="Carrinho vazio; disponível após a implementação do catálogo">
+            <a href="carrinho.html" aria-label="Abrir carrinho">
               <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 8h12l1 13H5L6 8Z"></path><path d="M9 8V5a3 3 0 0 1 6 0v3"></path></svg>
-              <span class="entry-cart-count">0</span>
-            </button>
+              <span class="entry-cart-count" data-cart-count>0</span>
+            </a>
           </div>
         </header>
 
@@ -74,27 +75,14 @@
         </span>
       </section>
 
-      <section class="store-intro" id="inicio-loja" tabindex="-1" aria-labelledby="store-intro-title">
-        <div class="store-intro__copy">
-          <span class="eyebrow">A loja começa aqui</span>
-          <h2 id="store-intro-title">Presentes que guardam histórias.</h2>
-          <p>A estrutura funcional da loja está sendo conectada ao catálogo real do Supabase. Nenhum produto ou preço fictício será apresentado como definitivo.</p>
-          <a class="button" href="produtos.html">Acessar produtos</a>
-        </div>
-        <div class="editorial-preview" aria-label="Prévia das futuras coleções">
-          <article class="editorial-scene editorial-scene--gifts">
-            <span>Catálogo real em desenvolvimento</span>
-            <h3>Presentes</h3>
-          </article>
-          <article class="editorial-scene editorial-scene--details">
-            <span>Produtos vindos do Supabase</span>
-            <h3>Pequenos detalhes</h3>
-          </article>
-        </div>
-      </section>
+      <section class="store-intro" id="inicio-loja" tabindex="-1" aria-labelledby="store-intro-title"><div class="store-intro__copy"><span class="eyebrow">Dentro da Casa</span><h2 id="store-intro-title">Detalhes que contam histórias.</h2><p>Acessórios e presentes escolhidos para acompanhar momentos, revelar sua essência e permanecer na memória.</p><a class="button" href="produtos.html">Conheça a coleção</a></div><div class="boutique-arch" aria-hidden="true"><div class="boutique-arch__niche"><span>AM</span></div></div></section>
+      <section class="home-section"><header><span class="eyebrow">Explore a boutique</span><h2>Coleções</h2></header><div class="home-categories" data-home-categories></div></section>
+      <section class="home-section home-section--products"><header><span class="eyebrow">Escolhas da Casa</span><h2>Destaques</h2></header><p data-home-status aria-live="polite">Carregando a loja…</p><div class="product-grid" data-home-products></div><a class="button" href="produtos.html">Ver todos os produtos</a></section>
+      <footer class="store-footer"><div><h2>Amoremio</h2><p>Acessórios e presentes escolhidos com delicadeza.</p></div><nav><a href="produtos.html">Coleções</a><a href="admin/index.html">Área administrativa</a></nav><div><p>Atendimento pelo WhatsApp<br>Brasília, DF</p></div><small class="store-footer__bottom">© 2026 Amoremio.</small></footer>
     </main>
 
     <noscript><p class="noscript">A entrada animada requer JavaScript. <a href="#inicio-loja">Ir diretamente para a loja.</a></p></noscript>
     <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/home-store.js"></script>
   </body>
 </html>

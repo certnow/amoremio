@@ -1,0 +1,22 @@
+import { addToCart } from "./cart.js";
+import { loadProduct } from "./products.js";
+import { escapeHtml, money, productPrice } from "./utils.js";
+import { initStoreShell } from "./store-shell.js";
+
+initStoreShell(); const root = document.querySelector("[data-product-detail]");
+const id = new URLSearchParams(location.search).get("produto");
+if (!id) { root.innerHTML = '<div class="empty-state"><h1>Produto não informado</h1><a class="button" href="produtos.html">Ver catálogo</a></div>'; }
+else {
+  try { const product = await loadProduct(id); if (!product) throw new Error("Produto não encontrado"); render(product); }
+  catch (error) { root.innerHTML = `<div class="empty-state"><h1>Produto indisponível</h1><p>${escapeHtml(error.message)}</p><a class="button" href="produtos.html">Ver catálogo</a></div>`; }
+}
+function render(product) {
+  document.title = `${product.name} | Amoremio`; const images = [...(product.product_images || [])].sort((a,b)=>a.position-b.position);
+  const variants = product.product_variants || []; const baseStock = Number(product.stock || 0);
+  root.innerHTML = `<div class="product-gallery">${images.length ? images.map((image)=>`<img src="${escapeHtml(image.image_url)}" alt="${escapeHtml(image.alt_text || product.name)}">`).join("") : '<div class="product-gallery__empty" aria-hidden="true">AM</div>'}</div>
+  <div class="product-info"><a class="breadcrumb" href="produtos.html">Coleções / ${escapeHtml(product.categories?.name || "Amoremio")}</a><h1>${escapeHtml(product.name)}</h1><p class="product-price" data-price>${product.promotional_price ? `<s>${money(product.price)}</s> ` : ""}<strong>${money(product.promotional_price ?? product.price)}</strong></p><p class="product-description">${escapeHtml(product.description || "Informações desta peça serão adicionadas em breve.")}</p><div class="product-meta"><div><span>Material</span>${escapeHtml(product.material || "A informar")}</div><div><span>Medidas</span>${escapeHtml(product.dimensions || "A informar")}</div></div>
+  <form class="product-form" data-product-form>${variants.length ? `<div class="field"><label for="variant">Variação</label><select id="variant" name="variant" required><option value="">Escolha uma opção</option>${variants.map(v=>`<option value="${v.id}" data-stock="${v.stock}" data-adjustment="${v.price_adjustment}">${escapeHtml(v.name)}: ${escapeHtml(v.value)}${Number(v.price_adjustment) ? ` (${Number(v.price_adjustment)>0?"+":""}${money(v.price_adjustment)})` : ""}</option>`).join("")}</select></div>` : ""}<div class="product-form__row"><div class="field"><label for="quantity">Quantidade</label><input id="quantity" name="quantity" type="number" min="1" max="${baseStock}" value="1"></div><button class="button" type="submit" ${baseStock <= 0 ? "disabled" : ""}>${baseStock <= 0 ? "Esgotado" : "Adicionar ao carrinho"}</button></div><span class="stock-note" data-stock>${baseStock > 0 ? `${baseStock} unidade${baseStock===1?"":"s"} disponível${baseStock===1?"":"is"}` : "Produto esgotado"}</span><p class="product-message" data-message aria-live="polite"></p></form></div>`;
+  const form=root.querySelector("form"), variantSelect=form.elements.variant, quantity=form.elements.quantity, stockNode=form.querySelector("[data-stock]"), priceNode=root.querySelector("[data-price]");
+  variantSelect?.addEventListener("change",()=>{ const option=variantSelect.selectedOptions[0]; const variant=variants.find(v=>v.id===variantSelect.value); const stock=Number(option?.dataset.stock||0); quantity.max=stock; quantity.value=Math.min(Number(quantity.value),stock)||1; stockNode.textContent=variantSelect.value?`${stock} unidade${stock===1?"":"s"} disponível${stock===1?"":"is"}`:`${baseStock} unidades disponíveis`; priceNode.innerHTML=`<strong>${money(productPrice(product,variant))}</strong>`; });
+  form.addEventListener("submit",(event)=>{event.preventDefault(); const variant=variants.find(v=>v.id===variantSelect?.value); if(variants.length&&!variant){form.querySelector("[data-message]").textContent="Escolha uma variação.";return;} const stock=variant?Number(variant.stock):baseStock; addToCart({productId:product.id,slug:product.slug,name:product.name,imageUrl:variant?.image_url||images[0]?.image_url||"",variantId:variant?.id||null,variantLabel:variant?`${variant.name}: ${variant.value}`:"",unitPrice:productPrice(product,variant),quantity:Number(quantity.value),stock}); form.querySelector("[data-message]").innerHTML='Produto adicionado. <a href="carrinho.html">Ver carrinho</a>';});
+}
