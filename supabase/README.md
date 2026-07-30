@@ -16,6 +16,7 @@ As migrações `001` a `004` foram aplicadas ao projeto remoto em 29 de julho de
 8. `008_fix_product_storage_read.sql` — leitura temporária restrita às imagens de produtos ativos
 9. `009_secure_product_image_access.sql` — verificação segura entre arquivo, imagem cadastrada e produto ativo
 10. `010_house_music.sql` — configurações da Música da Casa e bucket público de capas
+11. `011_normalize_spotify_embed_url.sql` — normaliza a playlist salva para a URL oficial de incorporação
 
 A migração 007 preserva as imagens existentes, identifica a primeira como principal,
 adiciona ordenação segura e transforma o bucket de produtos em privado. A loja gera

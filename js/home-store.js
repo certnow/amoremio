@@ -1,7 +1,7 @@
 import { addToCart } from "./cart.js";
 import { loadCategories, loadProducts } from "./products.js?v=20260730-3";
 import { escapeHtml, firstImage, money } from "./utils.js";
-import { initStoreShell } from "./store-shell.js?v=20260730-3";
+import { initStoreShell } from "./store-shell.js?v=20260730-4";
 
 initStoreShell();
 

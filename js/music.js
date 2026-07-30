@@ -22,15 +22,16 @@ function loadSpotifyIframeApi() {
   return spotifyApiPromise;
 }
 
-function spotifyEmbed(url) {
+export function spotifyEmbed(url) {
   try {
     const parsed = new URL(url);
     if (parsed.hostname !== "open.spotify.com") return null;
     const parts = parsed.pathname.split("/").filter(Boolean);
     const offset = parts[0]?.startsWith("intl-") ? 1 : 0;
-    const type = parts[offset], id = parts[offset + 1];
+    const embedOffset = parts[offset] === "embed" ? offset + 1 : offset;
+    const type = parts[embedOffset], id = parts[embedOffset + 1];
     if (!id || !["playlist", "album", "artist", "show", "episode", "track"].includes(type)) return null;
-    return `https://open.spotify.com/embed/${type}/${encodeURIComponent(id)}?utm_source=generator&theme=0`;
+    return `https://open.spotify.com/embed/${type}/${encodeURIComponent(id)}`;
   } catch { return null; }
 }
 
@@ -39,6 +40,9 @@ function addStylesheet() {
   const link = document.createElement("link");
   link.rel = "stylesheet"; link.href = "css/music.css?v=20260730-1"; link.dataset.houseMusicStyle = "";
   document.head.append(link);
+  const playerLink = document.createElement("link");
+  playerLink.rel = "stylesheet"; playerLink.href = "css/music-player.css?v=20260730-1"; playerLink.dataset.houseMusicStyle = "";
+  document.head.append(playerLink);
 }
 
 export async function initHouseMusic() {
@@ -51,6 +55,7 @@ export async function initHouseMusic() {
   const state = ["open", "minimized", "closed"].includes(saved) ? saved : settings.music_initial_state;
   if (state === "closed") return;
   const validEmbed = spotifyEmbed(settings.music_spotify_url);
+  const spotifyExternalUrl = validEmbed?.replace("/embed/", "/");
   const root = document.createElement("aside");
   root.className = "house-music"; root.dataset.houseMusic = ""; root.dataset.position = settings.music_position || "left";
   root.style.setProperty("--music-bg", settings.music_background_color || "#f3eadc");
@@ -61,7 +66,7 @@ export async function initHouseMusic() {
       <div class="house-music__tools"><button type="button" data-music-minimize aria-label="Minimizar">−</button><button type="button" data-music-close aria-label="Fechar nesta sessão">×</button></div>
       <div class="house-music__intro${settings.music_show_cover ? "" : " no-cover"}">${cover}<div><h2>${escapeHtml(settings.music_title || "Vozes da Casa Amoremio")}</h2><p>${escapeHtml(settings.music_description || "")}</p></div></div>
       <div class="house-music__embed" data-music-embed>${validEmbed ? "" : '<div class="house-music__preparing">Playlist em preparação</div>'}</div>
-      <a class="house-music__spotify" data-music-spotify href="${validEmbed ? escapeHtml(settings.music_spotify_url) : "#"}" target="_blank" rel="noopener" ${validEmbed ? "" : "hidden"}>${escapeHtml(settings.music_button_text || "Abrir no Spotify")}</a>
+      <a class="house-music__spotify" data-music-spotify href="${spotifyExternalUrl ? escapeHtml(spotifyExternalUrl) : "#"}" target="_blank" rel="noopener" ${validEmbed ? "" : "hidden"}>${escapeHtml(settings.music_button_text || "Abrir no Spotify")}</a>
     </section>`;
   document.body.append(root);
   const panel = root.querySelector("[data-music-panel]"), toggle = root.querySelector("[data-music-toggle]"), embed = root.querySelector("[data-music-embed]");
@@ -85,8 +90,14 @@ export async function initHouseMusic() {
     try {
       const IFrameAPI = await loadSpotifyIframeApi();
       if (disposed || !root.isConnected) return;
-      IFrameAPI.createController(embed.querySelector("[data-spotify-controller]"), { url: settings.music_spotify_url, width: "100%", height: 152 }, (controller) => {
+      IFrameAPI.createController(embed.querySelector("[data-spotify-controller]"), { url: spotifyExternalUrl, width: "100%", height: 352 }, (controller) => {
         EmbedController = controller;
+        const iframe = embed.querySelector("iframe");
+        if (iframe) {
+          iframe.setAttribute("allow", "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture");
+          iframe.setAttribute("allowfullscreen", "");
+          iframe.setAttribute("title", `Player oficial do Spotify: ${settings.music_title}`);
+        }
         if (document.visibilityState === "hidden" || disposed) pause();
       });
     } catch (error) {
