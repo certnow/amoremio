@@ -1,5 +1,6 @@
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const SKU = /^[A-Za-z0-9._-]{2,80}$/;
 
 export const normalizePhone = (value) => String(value ?? "").replace(/\D/g, "");
 export const parseNumber = (value) => {
@@ -72,9 +73,10 @@ export function validateProducts(rows) {
     const price = parseNumber(source.preço ?? source.preco ?? source.price);
     const promotionalPrice = parseNumber(source.preço_promocional ?? source.preco_promocional ?? source.promotional_price);
     const stock = parseNumber(source.estoque ?? source.stock);
-    const data = {id:source.id || null,name:String(source.nome ?? source.name ?? "").trim(),slug:String(source.slug ?? "").trim().toLowerCase(),category:String(source.categoria ?? source.category ?? "").trim(),description:String(source.descrição ?? source.descricao ?? source.description ?? ""),material:String(source.material ?? "").trim() || null,dimensions:String(source.medidas ?? source.dimensions ?? "").trim() || null,price,promotional_price:promotionalPrice,stock,active:parseBoolean(source.ativo ?? source.active,true),featured:parseBoolean(source.destaque ?? source.featured,false),variations:parseList(source.variações ?? source.variacoes ?? source.variations),images:parseList(source.imagens ?? source.images),primary_image:String(source.imagem_principal ?? source.primary_image ?? "").trim() || null};
+    const data = {id:source.id || null,name:String(source.nome ?? source.name ?? "").trim(),sku:String(source.sku ?? "").trim().toUpperCase(),slug:String(source.slug ?? "").trim().toLowerCase(),category:String(source.categoria ?? source.category ?? "").trim(),description:String(source.descrição ?? source.descricao ?? source.description ?? ""),material:String(source.material ?? "").trim() || null,material_details:String(source.complemento_material ?? source.material_details ?? "").trim() || null,care_instructions:String(source.cuidados ?? source.care_instructions ?? "").trim() || null,auto_material_in_title:parseBoolean(source.material_no_título ?? source.material_no_titulo ?? source.auto_material_in_title,true),dimensions:String(source.medidas ?? source.dimensions ?? "").trim() || null,price,promotional_price:promotionalPrice,stock,active:parseBoolean(source.ativo ?? source.active,true),featured:parseBoolean(source.destaque ?? source.featured,false),variations:parseList(source.variações ?? source.variacoes ?? source.variations),images:parseList(source.imagens ?? source.images),primary_image:String(source.imagem_principal ?? source.primary_image ?? "").trim() || null};
     const errors = [];
     if (data.name.length < 2) errors.push("Nome obrigatório.");
+    if (!SKU.test(data.sku)) errors.push("SKU obrigatório; use letras, números, ponto, hífen ou sublinhado.");
     if (!SLUG.test(data.slug)) errors.push("Slug inválido.");
     if (price == null || price < 0) errors.push("Preço inválido.");
     if (promotionalPrice != null && (promotionalPrice < 0 || promotionalPrice >= price)) errors.push("Preço promocional deve ser menor que o preço.");
@@ -92,4 +94,4 @@ export function validateBackup(value) {
 }
 
 export const customerTemplate = [{nome:"Maria da Silva",telefone:"5561999999999",email:"maria@exemplo.com",endereço:"Rua Exemplo, 100",observações:"Prefere contato pelo WhatsApp"}];
-export const productTemplate = [{nome:"Brinco exemplo",slug:"brinco-exemplo",categoria:"Brincos",descrição:"Descrição do produto",material:"Aço inox",medidas:"2 cm",preço:"99,90",preço_promocional:"89,90",estoque:10,ativo:true,destaque:false,variações:'[{"name":"Cor","value":"Dourado","price_adjustment":0,"stock":5}]',imagens:"https://exemplo.com/imagem-1.webp|https://exemplo.com/imagem-2.webp",imagem_principal:"https://exemplo.com/imagem-1.webp"}];
+export const productTemplate = [{nome:"Brinco exemplo",sku:"BRINCO-001",slug:"brinco-exemplo",categoria:"Brincos",descrição:"Descrição do produto",material:"Aço inoxidável",complemento_material:"Acabamento polido",cuidados:"Evite contato prolongado com produtos químicos, perfumes e cremes.",material_no_título:true,medidas:"2 cm",preço:"99,90",preço_promocional:"89,90",estoque:10,ativo:true,destaque:false,variações:'[{"name":"Cor","value":"Dourado","price_adjustment":0,"stock":5}]',imagens:"https://exemplo.com/imagem-1.webp|https://exemplo.com/imagem-2.webp",imagem_principal:"https://exemplo.com/imagem-1.webp"}];

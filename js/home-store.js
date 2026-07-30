@@ -1,7 +1,8 @@
 import { addToCart } from "./cart.js";
-import { loadCategories, loadProducts } from "./products.js?v=20260730-3";
+import { loadCategories, loadProducts } from "./products.js?v=20260730-4";
 import { escapeHtml, firstImage, money } from "./utils.js";
 import { initStoreShell } from "./store-shell.js?v=20260730-5";
+import { discountPercent, isSaleProduct, materialLabel, publicProductTitle } from "./product-commercial.js?v=20260730-1";
 
 initStoreShell();
 
@@ -26,14 +27,15 @@ const boutiqueProduct = (product, index) => {
   const type = displayType(product, index);
   const detailUrl = `produto.html?produto=${encodeURIComponent(product.slug || product.id)}`;
   const hasVariants = (product.product_variants || []).length > 0;
+  const title=publicProductTitle(product),sale=isSaleProduct(product),discount=discountPercent(product);
   return `<article class="boutique-product boutique-product--${type}">
-    <a class="boutique-product__stage" href="${detailUrl}" aria-label="Ver ${escapeHtml(product.name)}">
+    <a class="boutique-product__stage" href="${detailUrl}" aria-label="Ver ${escapeHtml(title)}">
       <span class="boutique-product__architecture" aria-hidden="true"></span>
-      ${image ? `<img src="${escapeHtml(image.image_url)}" alt="${escapeHtml(image.alt_text || product.name)}" loading="lazy">` : '<span class="boutique-product__placeholder" aria-hidden="true">AM</span>'}
+      ${image ? `<img src="${escapeHtml(image.image_url)}" alt="${escapeHtml(image.alt_text || title)}" loading="lazy">` : '<span class="boutique-product__placeholder" aria-hidden="true">AM</span>'}${sale?`<span class="product-card__badge product-card__badge--sale">Saldo · ${discount}%</span>`:""}
     </a>
     <div class="boutique-product__information">
       <span class="boutique-product__category">${escapeHtml(product.categories?.name || "Amoremio")}</span>
-      <h3><a href="${detailUrl}">${escapeHtml(product.name)}</a></h3>
+      <h3><a href="${detailUrl}">${escapeHtml(title)}</a></h3>${product.material?`<small class="product-card__material">${escapeHtml(materialLabel(product))}</small>`:""}
       <div class="boutique-product__price">${product.promotional_price ? `<s>${money(product.price)}</s>` : ""}<strong>${money(price)}</strong></div>
       <p class="boutique-product__stock">${product.stock > 0 ? `${product.stock} em estoque` : "Esgotado"}</p>
       ${hasVariants
@@ -72,7 +74,9 @@ productRoot.addEventListener("click", (event) => {
   addToCart({
     productId: product.id,
     slug: product.slug,
-    name: product.name,
+    name: publicProductTitle(product),
+    sku: product.sku,
+    material: materialLabel(product),
     imageUrl: image?.image_url || "",
     variantId: null,
     variantLabel: "",
@@ -80,5 +84,5 @@ productRoot.addEventListener("click", (event) => {
     quantity: 1,
     stock: Number(product.stock),
   });
-  status.textContent = `${product.name} foi adicionado ao carrinho.`;
+  status.textContent = `${publicProductTitle(product)} foi adicionado ao carrinho.`;
 });

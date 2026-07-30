@@ -1,5 +1,6 @@
 import { supabase } from "./supabase-client.js";
 import { escapeHtml, firstImage, money } from "./utils.js";
+import { discountPercent, isSaleProduct, materialLabel, publicProductTitle } from "./product-commercial.js?v=20260730-1";
 
 const PRODUCT_SELECT = "*, categories(id,name,slug), product_images(id,image_url,storage_path,alt_text,position,is_primary), product_variants(id,name,value,price_adjustment,stock,image_url,image_id)";
 
@@ -26,14 +27,14 @@ export async function loadCategories() {
   const { data, error } = await supabase.from("categories").select("*").eq("active", true).order("name");
   if (error) throw error; return data || [];
 }
-export async function loadProducts({ category, search, featured, limit } = {}) {
+export async function loadProducts({ category, material, sale, search, featured, limit } = {}) {
   let query = supabase.from("products").select(PRODUCT_SELECT).eq("active", true).order("created_at", { ascending: false });
-  if (search) query = query.or(`name.ilike.%${search.replace(/[%(),]/g, "") }%,description.ilike.%${search.replace(/[%(),]/g, "")}%`);
+  if (search) { const term=search.replace(/[%(),]/g, ""); query = query.or(`name.ilike.%${term}%,sku.ilike.%${term}%,description.ilike.%${term}%,material.ilike.%${term}%,material_details.ilike.%${term}%`); }
   if (featured) query = query.eq("featured", true);
   if (limit) query = query.limit(limit);
   const { data, error } = await query; if (error) throw error;
   await resolveProductImages(data || []);
-  return category ? (data || []).filter((product) => product.categories?.slug === category) : (data || []);
+  return (data || []).filter((product) => (!category || product.categories?.slug === category) && (!material || product.material === material) && (!sale || isSaleProduct(product)));
 }
 export async function loadProduct(identifier) {
   const field = /^[0-9a-f-]{36}$/i.test(identifier) ? "id" : "slug";
@@ -41,14 +42,15 @@ export async function loadProduct(identifier) {
   if (error) throw error; if (data) await resolveProductImages(data); return data;
 }
 export function productCard(product) {
-  const image = firstImage(product); const price = product.promotional_price ?? product.price;
+  const image = firstImage(product), price = product.promotional_price ?? product.price, title=publicProductTitle(product), discount=discountPercent(product),sale=isSaleProduct(product);
   return `<article class="product-card">
     <a class="product-card__image" href="produto.html?produto=${encodeURIComponent(product.slug || product.id)}">
-      ${image ? `<img src="${escapeHtml(image.image_url)}" alt="${escapeHtml(image.alt_text || product.name)}" loading="lazy">` : `<span class="product-card__placeholder" aria-hidden="true">AM</span>`}
-      ${product.stock <= 0 ? '<span class="product-card__badge">Esgotado</span>' : product.featured ? '<span class="product-card__badge">Destaque</span>' : ""}
+      ${image ? `<img src="${escapeHtml(image.image_url)}" alt="${escapeHtml(image.alt_text || title)}" loading="lazy">` : `<span class="product-card__placeholder" aria-hidden="true">AM</span>`}
+      ${product.stock <= 0 ? '<span class="product-card__badge">Esgotado</span>' : sale ? `<span class="product-card__badge product-card__badge--sale">Saldo · ${discount}%</span>` : product.featured ? '<span class="product-card__badge">Destaque</span>' : ""}
     </a>
     <div class="product-card__body"><span>${escapeHtml(product.categories?.name || "Amoremio")}</span>
-      <h3><a href="produto.html?produto=${encodeURIComponent(product.slug || product.id)}">${escapeHtml(product.name)}</a></h3>
+      <h3><a href="produto.html?produto=${encodeURIComponent(product.slug || product.id)}">${escapeHtml(title)}</a></h3>
+      ${product.material?`<small class="product-card__material">${escapeHtml(materialLabel(product))}</small>`:""}
       ${product.promotional_price ? `<p><s>${money(product.price)}</s> <strong>${money(price)}</strong></p>` : `<p><strong>${money(price)}</strong></p>`}
     </div></article>`;
 }

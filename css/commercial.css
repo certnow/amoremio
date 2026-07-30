@@ -1,0 +1,1 @@
+.catalog-toolbar{grid-template-columns:minmax(14rem,1fr) repeat(2,minmax(12rem,.35fr))}.product-card__material{display:block;margin:.15rem 0;color:var(--muted);font-size:.62rem}.product-card__badge--sale{background:#7d4f32;color:#fff}@media(max-width:760px){.catalog-toolbar{grid-template-columns:1fr}}
