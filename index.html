@@ -20,14 +20,8 @@
 
     <main>
       <section class="entry-screen" aria-labelledby="entry-title">
-        <img
-          class="entry-screen__image"
-          src="assets/images/casa-amoremio-entrada-provisoria.png"
-          alt="Mulher diante da Casa Amoremio, entre cortinas claras, piscina, praia e mar ao pôr do sol"
-          fetchpriority="high"
-        />
+        <img class="entry-screen__image" src="assets/images/casa-amoremio-entrada-provisoria.png" alt="Mulher diante da Casa Amoremio, entre cortinas claras, piscina, praia e mar ao pôr do sol" fetchpriority="high" />
         <div class="entry-screen__veil" aria-hidden="true"></div>
-
         <header class="entry-header">
           <nav class="entry-nav" aria-label="Navegação da entrada">
             <span aria-disabled="true">Nova coleção</span>
@@ -36,49 +30,53 @@
             <span aria-disabled="true">Jornal</span>
             <span aria-disabled="true">Contato</span>
           </nav>
-
-          <a class="entry-brand" href="#top" aria-label="Amoremio Acessórios, início">
-            <strong>Amoremio</strong>
-            <span>Acessórios</span>
-          </a>
-
+          <a class="entry-brand" href="#top" aria-label="Amoremio Acessórios, início"><strong>Amoremio</strong><span>Acessórios</span></a>
           <div class="entry-actions" aria-label="Atalhos da loja">
-            <a href="produtos.html" aria-label="Buscar produtos">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 5 5"></path></svg>
-              <span>Buscar</span>
-            </a>
-            <a href="admin/index.html" aria-label="Área administrativa">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"></circle><path d="M4 22c0-5 3-8 8-8s8 3 8 8"></path></svg>
-            </a>
-            <button type="button" disabled aria-label="Favoritos disponíveis em uma próxima etapa">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"></path></svg>
-            </button>
-            <a href="carrinho.html" aria-label="Abrir carrinho">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 8h12l1 13H5L6 8Z"></path><path d="M9 8V5a3 3 0 0 1 6 0v3"></path></svg>
-              <span class="entry-cart-count" data-cart-count>0</span>
-            </a>
+            <a href="produtos.html" aria-label="Buscar produtos"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 5 5"></path></svg><span>Buscar</span></a>
+            <a href="admin/index.html" aria-label="Área administrativa"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"></circle><path d="M4 22c0-5 3-8 8-8s8 3 8 8"></path></svg></a>
+            <a href="carrinho.html" aria-label="Abrir carrinho"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 8h12l1 13H5L6 8Z"></path><path d="M9 8V5a3 3 0 0 1 6 0v3"></path></svg><span class="entry-cart-count" data-cart-count>0</span></a>
           </div>
         </header>
-
         <div class="entry-copy">
           <h1 id="entry-title">Entre na<br />Casa Amoremio.</h1>
           <p>Um lugar de proximidade, luz e brisa — onde cada detalhe carrega histórias e celebra o que é essencial.</p>
-          <button class="entry-cta js-open-house" type="button">
-            <span>Abrir a casa</span>
-            <svg aria-hidden="true" viewBox="0 0 32 16"><path d="M0 8h29M23 2l6 6-6 6"></path></svg>
-          </button>
+          <button class="entry-cta js-open-house" type="button"><span>Abrir a casa</span><svg aria-hidden="true" viewBox="0 0 32 16"><path d="M0 8h29M23 2l6 6-6 6"></path></svg></button>
         </div>
-
         <button class="entry-skip js-skip-entry" type="button">Pular entrada</button>
-        <span class="entry-scroll" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M12 4v15M6 13l6 6 6-6"></path></svg>
-        </span>
+        <span class="entry-scroll" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v15M6 13l6 6 6-6"></path></svg></span>
       </section>
 
-      <section class="store-intro" id="inicio-loja" tabindex="-1" aria-labelledby="store-intro-title"><div class="store-intro__copy"><span class="eyebrow">Dentro da Casa</span><h2 id="store-intro-title">Detalhes que contam histórias.</h2><p>Acessórios e presentes escolhidos para acompanhar momentos, revelar sua essência e permanecer na memória.</p><a class="button" href="produtos.html">Conheça a coleção</a></div><div class="boutique-arch" aria-hidden="true"><div class="boutique-arch__niche"><span>AM</span></div></div></section>
-      <section class="home-section"><header><span class="eyebrow">Explore a boutique</span><h2>Coleções</h2></header><div class="home-categories" data-home-categories></div></section>
+      <section class="home-hero" id="inicio-loja" tabindex="-1" aria-labelledby="home-title">
+        <img class="home-hero__image" src="assets/images/fachada-amoremio-provisoria.png" alt="Fachada da boutique Amoremio com portas de vidro abertas e interior iluminado" fetchpriority="high" />
+        <div class="home-hero__shade" aria-hidden="true"></div>
+        <header class="home-header">
+          <button class="menu-toggle home-menu-toggle" data-menu-toggle aria-label="Abrir menu" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"></path></svg></button>
+          <form class="home-search" action="produtos.html">
+            <label class="sr-only" for="home-search">Buscar produtos</label>
+            <input id="home-search" name="busca" type="search" placeholder="Buscar produtos..." />
+            <button type="submit" aria-label="Buscar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 5 5"></path></svg></button>
+          </form>
+          <a class="home-brand" href="#inicio-loja"><strong>Amoremio</strong><span>Acessórios</span></a>
+          <div class="home-actions">
+            <a href="admin/index.html" aria-label="Área administrativa"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"></circle><path d="M4 22c0-5 3-8 8-8s8 3 8 8"></path></svg></a>
+            <a class="cart-pill" href="carrinho.html" aria-label="Abrir carrinho"><svg viewBox="0 0 24 24"><path d="M6 8h12l1 13H5L6 8Z"></path><path d="M9 8V5a3 3 0 0 1 6 0v3"></path></svg><span data-cart-count>0</span></a>
+          </div>
+          <nav class="store-nav home-nav" aria-label="Categorias principais">
+            <a href="produtos.html">Novidades</a><a href="produtos.html?categoria=brincos">Brincos</a><a href="produtos.html?categoria=pulseiras">Pulseiras</a><a href="produtos.html?categoria=aneis">Anéis</a><a href="produtos.html?categoria=presilhas">Presilhas</a><a href="produtos.html?categoria=inox">Inox</a><a href="produtos.html?categoria=presentes">Presentes</a>
+          </nav>
+        </header>
+        <div class="home-hero__copy">
+          <span class="eyebrow">Bem-vinda à boutique</span>
+          <h1 id="home-title">Detalhes que<br />contam histórias.</h1>
+          <p>Acessórios que revelam sua essência e acompanham cada momento.</p>
+          <a class="button home-hero__cta" href="#colecoes">Conheça a coleção</a>
+        </div>
+        <a class="home-hero__scroll" href="#colecoes" aria-label="Ver coleções"><svg viewBox="0 0 24 24"><path d="M12 4v15M6 13l6 6 6-6"></path></svg></a>
+      </section>
+
+      <section class="home-section" id="colecoes"><header><span class="eyebrow">Explore a boutique</span><h2>Coleções</h2></header><div class="home-categories" data-home-categories></div></section>
       <section class="home-section home-section--products"><header><span class="eyebrow">Escolhas da Casa</span><h2>Destaques</h2></header><p data-home-status aria-live="polite">Carregando a loja…</p><div class="product-grid" data-home-products></div><a class="button" href="produtos.html">Ver todos os produtos</a></section>
-      <footer class="store-footer"><div><h2>Amoremio</h2><p>Acessórios e presentes escolhidos com delicadeza.</p></div><nav><a href="produtos.html">Coleções</a><a href="admin/index.html">Área administrativa</a></nav><div><p>Atendimento pelo WhatsApp<br>Brasília, DF</p></div><small class="store-footer__bottom">© 2026 Amoremio.</small></footer>
+      <footer class="store-footer"><div><h2>Amoremio</h2><p>Acessórios e presentes escolhidos com delicadeza.</p></div><nav><a href="produtos.html">Coleções</a><a href="admin/index.html">Área administrativa</a></nav><div><p>Atendimento pelo WhatsApp<br />Brasília, DF</p></div><small class="store-footer__bottom">© 2026 Amoremio.</small></footer>
     </main>
 
     <noscript><p class="noscript">A entrada animada requer JavaScript. <a href="#inicio-loja">Ir diretamente para a loja.</a></p></noscript>

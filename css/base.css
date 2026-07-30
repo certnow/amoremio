@@ -32,6 +32,7 @@ button { color: inherit; }
 
 .skip-link:focus { translate: 0; }
 .silk-filters { position: absolute; width: 0; height: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
 .eyebrow { font-size: 0.67rem; letter-spacing: 0.25em; text-transform: uppercase; }
 
 .button {

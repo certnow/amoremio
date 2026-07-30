@@ -2,11 +2,12 @@
 
 Loja virtual estática publicada no GitHub Pages, com catálogo, administração e pedidos conectados ao Supabase.
 
-> A entrada usa provisoriamente `assets/images/casa-amoremio-entrada-provisoria.png`. A imagem será trocada pela versão limpa quando ela for fornecida; a referência atual não foi recortada nem reconstruída.
+> A entrada e a fachada da home usam provisoriamente `assets/images/casa-amoremio-entrada-provisoria.png` e `assets/images/fachada-amoremio-provisoria.png`. Elas serão trocadas pelas versões limpas quando forem fornecidas.
 
 ## O que funciona
 
-- entrada “Casa Amoremio” e transição para a loja;
+- entrada “Casa Amoremio” e transição direta para a home funcional;
+- fachada de portas abertas como hero principal da loja, sem tela intermediária;
 - homepage com categorias e produtos em destaque do Supabase;
 - catálogo real, busca e filtro por categoria;
 - detalhes, fotos, material, medidas, variações, preço e estoque;

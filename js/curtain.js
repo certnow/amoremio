@@ -17,7 +17,7 @@ export function setupCurtain(storefront, entrance) {
     window.setTimeout(() => {
       document.body.classList.add("experience-open");
       document.querySelector("#inicio-loja")?.scrollIntoView({ block: "start" });
-      document.querySelector("#inicio-loja .button")?.focus({ preventScroll: true });
+      document.querySelector("#inicio-loja .home-search input")?.focus({ preventScroll: true });
     }, 760);
   };
 

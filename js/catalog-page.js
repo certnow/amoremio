@@ -13,6 +13,7 @@ async function render() {
   } catch (error) { status.textContent = "Não foi possível carregar o catálogo. Tente novamente."; console.error(error); }
 }
 try { const categories = await loadCategories(); select.insertAdjacentHTML("beforeend", categories.map((item) => `<option value="${escapeHtml(item.slug)}">${escapeHtml(item.name)}</option>`).join(""));
-  const initial = new URLSearchParams(location.search).get("categoria"); if (initial) select.value = initial;
+  const params = new URLSearchParams(location.search); const initial = params.get("categoria"); if (initial) select.value = initial;
+  const initialSearch = params.get("busca"); if (initialSearch) search.value = initialSearch;
 } catch (error) { console.error(error); }
 search.addEventListener("input", debounce(render)); select.addEventListener("change", render); render();
