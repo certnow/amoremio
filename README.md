@@ -2,6 +2,8 @@
 
 Primeira entrega da loja virtual Amoremio: uma entrada editorial com cortinas de seda e o início da área da loja. O projeto é estático e compatível com GitHub Pages.
 
+> A entrada usa temporariamente `assets/images/casa-amoremio-entrada-provisoria.png`, uma referência visual com interface incorporada. Ela será substituída pela versão limpa aprovada, sem recorte ou edição automática da referência atual.
+
 ## Incluído nesta entrega
 
 - entrada em tela cheia;

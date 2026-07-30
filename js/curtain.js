@@ -1,35 +1,34 @@
 export function setupCurtain(storefront, entrance) {
   const allowsMotion = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let frame;
+  const skipButtons = document.querySelectorAll(".js-skip-entry");
+  const sessionKey = "amoremio-house-opened";
 
-  const open = () => {
-    storefront.classList.add("is-open");
-    document.body.classList.add("experience-open");
+  const revealStore = ({ immediate = false } = {}) => {
+    sessionStorage.setItem(sessionKey, "true");
     entrance.setAttribute("aria-expanded", "true");
-    window.setTimeout(() => document.querySelector(".reveal-copy .button")?.focus(), allowsMotion ? 1750 : 0);
+
+    if (immediate || !allowsMotion) {
+      document.body.classList.add("experience-open");
+      document.querySelector("#inicio-loja")?.focus({ preventScroll: true });
+      return;
+    }
+
+    storefront.classList.add("is-leaving");
+    window.setTimeout(() => {
+      document.body.classList.add("experience-open");
+      document.querySelector("#inicio-loja")?.scrollIntoView({ block: "start" });
+      document.querySelector("#inicio-loja .button")?.focus({ preventScroll: true });
+    }, 760);
   };
 
-  entrance.addEventListener("click", open);
-
-  if (!allowsMotion) return;
-
-  storefront.addEventListener("pointermove", (event) => {
-    if (frame || storefront.classList.contains("is-open")) return;
-    frame = requestAnimationFrame(() => {
-      const x = (event.clientX / window.innerWidth - 0.5) * 2;
-      const y = (event.clientY / window.innerHeight - 0.5) * 2;
-      storefront.style.setProperty("--pointer-x", x.toFixed(3));
-      storefront.style.setProperty("--pointer-y", y.toFixed(3));
-      frame = undefined;
+  entrance.addEventListener("click", () => revealStore());
+  skipButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      revealStore({ immediate: true });
+      document.querySelector("#inicio-loja")?.scrollIntoView({ block: "start" });
     });
   });
 
-  storefront.addEventListener("pointerleave", () => {
-    storefront.style.setProperty("--pointer-x", 0);
-    storefront.style.setProperty("--pointer-y", 0);
-  });
-
-  document.addEventListener("visibilitychange", () => {
-    storefront.classList.toggle("is-paused", document.hidden);
-  });
+  if (sessionStorage.getItem(sessionKey) === "true") revealStore({ immediate: true });
 }
