@@ -1,7 +1,26 @@
 import { supabase } from "./supabase-client.js";
 import { escapeHtml, firstImage, money } from "./utils.js";
 
-const PRODUCT_SELECT = "*, categories(id,name,slug), product_images(id,image_url,alt_text,position), product_variants(id,name,value,price_adjustment,stock,image_url)";
+const PRODUCT_SELECT = "*, categories(id,name,slug), product_images(id,image_url,storage_path,alt_text,position,is_primary), product_variants(id,name,value,price_adjustment,stock,image_url,image_id)";
+
+export async function resolveProductImages(products) {
+  const list = Array.isArray(products) ? products : [products];
+  const paths = [...new Set(list.flatMap((product) => (product?.product_images || []).map((image) => image.storage_path).filter(Boolean)))];
+  if (!paths.length) return products;
+  const { data, error } = await supabase.storage.from("product-images").createSignedUrls(paths, 3600);
+  if (error) throw error;
+  const signedByPath = new Map((data || []).filter((item) => item.signedUrl).map((item) => [item.path, item.signedUrl]));
+  list.forEach((product) => {
+    (product?.product_images || []).forEach((image) => {
+      if (image.storage_path && signedByPath.has(image.storage_path)) image.image_url = signedByPath.get(image.storage_path);
+    });
+    (product?.product_variants || []).forEach((variant) => {
+      const linked = (product.product_images || []).find((image) => image.id === variant.image_id);
+      if (linked?.image_url) variant.image_url = linked.image_url;
+    });
+  });
+  return products;
+}
 
 export async function loadCategories() {
   const { data, error } = await supabase.from("categories").select("*").eq("active", true).order("name");
@@ -13,12 +32,13 @@ export async function loadProducts({ category, search, featured, limit } = {}) {
   if (featured) query = query.eq("featured", true);
   if (limit) query = query.limit(limit);
   const { data, error } = await query; if (error) throw error;
+  await resolveProductImages(data || []);
   return category ? (data || []).filter((product) => product.categories?.slug === category) : (data || []);
 }
 export async function loadProduct(identifier) {
   const field = /^[0-9a-f-]{36}$/i.test(identifier) ? "id" : "slug";
   const { data, error } = await supabase.from("products").select(PRODUCT_SELECT).eq(field, identifier).eq("active", true).maybeSingle();
-  if (error) throw error; return data;
+  if (error) throw error; if (data) await resolveProductImages(data); return data;
 }
 export function productCard(product) {
   const image = firstImage(product); const price = product.promotional_price ?? product.price;

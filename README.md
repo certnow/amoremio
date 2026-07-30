@@ -19,6 +19,7 @@ Loja virtual estática publicada no GitHub Pages, com catálogo, administração
 - mensagem de WhatsApp com número e resumo do pedido;
 - login administrativo pelo Supabase Auth;
 - painel para categorias, produtos, fotos, variações, estoque, pedidos, clientes e informações da loja;
+- galeria flexível com várias imagens, principal, ordenação, texto alternativo e otimização antes do envio;
 - layouts para computador e celular.
 
 ## Segurança
@@ -52,5 +53,9 @@ Para teste local, abra a pasta por um servidor local, como a extensão Live Serv
 6. Finalize: o Supabase valida e registra o pedido antes de abrir o WhatsApp.
 
 As migrações e a auditoria de segurança estão em `supabase/`.
+
+Na página do produto, a galeria possui miniaturas, setas, ampliação, navegação por
+teclado e gesto horizontal no celular. Imagens novas ficam no bucket privado
+`product-images` e são entregues por links temporários.
 
 Os três produtos prefixados com `[TESTE]` validam temporariamente a composição da boutique e podem ser excluídos pelo painel quando os produtos reais forem cadastrados.

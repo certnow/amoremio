@@ -12,6 +12,11 @@ As migrações `001` a `004` foram aplicadas ao projeto remoto em 29 de julho de
 4. `004_create_order_function.sql`
 5. `005_bootstrap_admin.sql`
 6. `006_seed_removable_boutique_preview.sql` — três produtos temporários para validar a exposição visual
+7. `007_product_image_gallery.sql` — galeria múltipla, imagem principal, Storage privado e vínculo de variação
+
+A migração 007 preserva as imagens existentes, identifica a primeira como principal,
+adiciona ordenação segura e transforma o bucket de produtos em privado. A loja gera
+links temporários somente para imagens autorizadas pelas políticas do catálogo.
 
 Não reaplique manualmente arquivos já registrados no histórico remoto. Mudanças futuras devem ser criadas como novas migrações. Não use a chave `service_role` no navegador, no repositório ou em arquivos do frontend.
 
