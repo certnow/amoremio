@@ -18,6 +18,7 @@ As migrações `001` a `004` foram aplicadas ao projeto remoto em 29 de julho de
 10. `010_house_music.sql` — configurações da Música da Casa e bucket público de capas
 11. `011_normalize_spotify_embed_url.sql` — normaliza a playlist salva para a URL oficial de incorporação
 12. `012_spotify_generator_url.sql` — preserva o parâmetro do código oficial gerado pelo Spotify
+13. `013_data_backups.sql` — observações de clientes e auditoria administrativa de exportações/importações
 
 A migração 007 preserva as imagens existentes, identifica a primeira como principal,
 adiciona ordenação segura e transforma o bucket de produtos em privado. A loja gera
