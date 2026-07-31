@@ -70,40 +70,40 @@
 .boutique-showcase {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(.75rem, 2.1vw, 2.6rem);
-  align-items: end;
-  width: min(96%, 100rem);
+  gap: clamp(.5rem, 1.5vw, 1.5rem);
+  align-items: start;
+  width: min(98%, 103rem);
   min-height: min(58vw, 52rem);
   margin: 0 auto;
-  padding: clamp(8rem, 14vw, 13rem) clamp(.6rem, 2.3vw, 2.6rem) clamp(7rem, 12vw, 11rem);
+  padding: clamp(7.5rem, 10.8vw, 10rem) clamp(.5rem, 1.5vw, 1.5rem) 0;
 }
 
 .boutique-product {
   min-width: 0;
-  align-self: center;
-  filter: drop-shadow(0 1.2rem 1.1rem #4c2c182d);
+  align-self: start;
+  filter: drop-shadow(0 .9rem .9rem #4c2c1824);
   transition: transform .45s ease, filter .45s ease;
 }
 
 .boutique-product:hover,
 .boutique-product:focus-within {
   z-index: 2;
-  transform: translateY(-.45rem);
-  filter: drop-shadow(0 1.6rem 1.35rem #4c2c1845);
+  transform: translateY(-.25rem);
+  filter: drop-shadow(0 1.2rem 1.1rem #4c2c183d);
 }
 
 .boutique-product__stage {
   position: relative;
   display: grid;
   place-items: center;
-  width: 78%;
-  aspect-ratio: 1 / 1.04;
+  width: min(68%, 13.5rem);
+  aspect-ratio: 1 / 1;
   margin: 0 auto;
   overflow: hidden;
   border: 1px solid #fff9edb0;
-  border-radius: 50% 50% .8rem .8rem / 22% 22% .8rem .8rem;
-  background: linear-gradient(145deg, #fffaf0ed, #e2cdb5e8);
-  box-shadow: inset 0 1.1rem 2.4rem #71451f1b, 0 .9rem 1.5rem #5f351a26;
+  border-radius: .45rem;
+  background: linear-gradient(145deg, #fffaf0f2, #e2cdb5ee);
+  box-shadow: inset 0 1.1rem 2.4rem #71451f1b, 0 .75rem 1.2rem #5f351a26;
   text-decoration: none;
   backdrop-filter: blur(5px);
 }
@@ -112,7 +112,7 @@
   content: "";
   position: absolute;
   right: 10%;
-  bottom: 5%;
+  bottom: 3%;
   left: 10%;
   height: 5%;
   border-radius: 50%;
@@ -123,8 +123,8 @@
 .boutique-product__stage img {
   position: relative;
   z-index: 1;
-  width: 92%;
-  height: 92%;
+  width: 94%;
+  height: 94%;
   object-fit: contain;
   transition: transform .55s ease;
 }
@@ -147,13 +147,14 @@
 .boutique-product__information {
   position: relative;
   z-index: 3;
-  width: 94%;
-  min-height: 12rem;
-  margin: -.25rem auto 0;
-  padding: 1rem 1rem 1.15rem;
+  width: min(82%, 16rem);
+  min-height: 0;
+  margin: -.15rem auto 0;
+  padding: .75rem .8rem .85rem;
   border: 1px solid #fff8e6a8;
-  background: #fffaf2ed;
-  box-shadow: 0 1rem 2rem #674a2d24;
+  border-top: 2px solid #b58b5e;
+  background: #fffaf2f4;
+  box-shadow: 0 .75rem 1.4rem #674a2d20;
   text-align: left;
   backdrop-filter: blur(10px);
 }
@@ -166,8 +167,12 @@
 }
 
 .boutique-product h3 {
-  margin: .3rem 0;
-  font: 500 clamp(1.15rem, 1.55vw, 1.65rem) "Cormorant Garamond", serif;
+  display: -webkit-box;
+  margin: .25rem 0;
+  overflow: hidden;
+  font: 500 clamp(1rem, 1.2vw, 1.3rem)/1.05 "Cormorant Garamond", serif;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .boutique-product h3 a {
@@ -190,7 +195,7 @@
 }
 
 .boutique-product__stock {
-  margin: .5rem 0;
+  margin: .35rem 0;
   color: #596553;
   font-size: .62rem;
 }
@@ -200,12 +205,12 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 2.5rem;
+  min-height: 2.1rem;
   border: 1px solid #596553;
-  padding: .6rem .75rem;
+  padding: .45rem .6rem;
   color: #fff;
   background: #596553;
-  font-size: .54rem;
+  font-size: .5rem;
   letter-spacing: .1em;
   text-decoration: none;
   text-transform: uppercase;
@@ -233,19 +238,30 @@
   backdrop-filter: blur(8px);
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1100px) {
   .boutique-scene {
-    min-height: 50rem;
+    min-height: 44rem;
   }
 
   .boutique-showcase {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    min-height: 50rem;
-    padding: 7rem clamp(1.5rem, 7vw, 5rem) 5rem;
+    display: flex;
+    min-height: 44rem;
+    align-items: flex-start;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding: 7.5rem clamp(2rem, 8vw, 5rem) 5rem;
+    scroll-padding-inline: clamp(2rem, 8vw, 5rem);
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+
+  .boutique-product {
+    flex: 0 0 min(34vw, 17rem);
+    scroll-snap-align: center;
   }
 
   .boutique-product__stage {
-    width: 70%;
+    width: 72%;
     max-width: 15rem;
   }
 }
@@ -268,14 +284,11 @@
   }
 
   .boutique-showcase {
-    display: flex;
     min-height: 38rem;
-    align-items: center;
+    align-items: flex-start;
     gap: 1rem;
-    overflow-x: auto;
     padding: 5.5rem 1.25rem 4rem;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
+    scroll-padding-inline: 1.25rem;
   }
 
   .boutique-product {
