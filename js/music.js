@@ -43,6 +43,7 @@ export async function initHouseMusic() {
   const spotifyExternalUrl = validEmbed?.replace("/embed/", "/").replace("?utm_source=generator", "");
   const root = document.createElement("aside");
   root.className = "house-music"; root.dataset.houseMusic = ""; root.dataset.position = settings.music_position || "left";
+  root.style.zIndex = "9999";
   root.style.setProperty("--music-bg", settings.music_background_color || "#f3eadc");
   root.style.setProperty("--music-opacity", String(settings.music_opacity ?? .92));
   const cover = settings.music_show_cover ? (settings.music_cover_url ? `<img class="house-music__cover" src="${escapeHtml(settings.music_cover_url)}" alt="Capa de ${escapeHtml(settings.music_title)}">` : '<span class="house-music__cover-placeholder" aria-label="Capa ainda não cadastrada">AM</span>') : "";

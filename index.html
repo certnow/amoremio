@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="css/responsive.css?v=20260730-4" />
     <link rel="stylesheet" href="css/store.css?v=20260730-4" />
     <link rel="stylesheet" href="css/boutique.css?v=20260730-7" />
-    <link rel="stylesheet" href="css/home-reference.css?v=20260731-3" />
+    <link rel="stylesheet" href="css/home-reference.css?v=20260731-4" />
     <link rel="stylesheet" href="css/commercial.css?v=20260730-1" />
   </head>
   <body id="top">
@@ -79,9 +79,10 @@
         <a class="home-hero__scroll" href="#colecoes" aria-label="Ver coleções"><svg viewBox="0 0 24 24"><path d="M12 4v15M6 13l6 6 6-6"></path></svg></a>
       </section>
 
-      <section class="home-collections" id="colecoes" aria-labelledby="collections-title">
-        <div class="home-collections__leaves" aria-hidden="true"></div>
-        <header class="home-section-heading">
+      <section class="home-collections home-visual-section" id="colecoes" aria-labelledby="collections-title" data-home-background="collections">
+        <div class="home-section__background" aria-hidden="true"></div>
+        <div class="home-section__effects" aria-hidden="true"><span class="collection-leaf-shadow collection-leaf-shadow--left"></span><span class="collection-leaf-shadow collection-leaf-shadow--right"></span><span class="home-collections__water"></span></div>
+        <div class="home-section__content"><header class="home-section-heading">
           <span class="eyebrow">Essência &amp; boutique</span>
           <h2 id="collections-title">Coleções<br />que encantam</h2>
           <i aria-hidden="true"></i>
@@ -89,11 +90,12 @@
         <div class="home-glass home-collections__glass">
           <div class="home-category-arches" data-home-categories></div>
         </div>
-        <div class="home-collections__water" aria-hidden="true"></div>
+        </div>
       </section>
 
-      <section class="home-featured" aria-labelledby="featured-title">
-        <div class="home-glass home-featured__glass">
+      <section class="home-featured home-visual-section" aria-labelledby="featured-title" data-home-background="featured">
+        <div class="home-section__background" aria-hidden="true"></div><div class="home-section__effects home-featured__effects" aria-hidden="true"></div>
+        <div class="home-section__content"><div class="home-glass home-featured__glass">
           <div class="home-featured__copy">
             <span class="eyebrow">Escolhas da Casa</span>
             <h2 id="featured-title">Peças que<br />enaltecem <em>sua essência</em></h2>
@@ -104,19 +106,21 @@
           <div class="home-featured__products" data-home-products></div>
         </div>
         <p class="home-data-status" data-home-status aria-live="polite">Preparando as escolhas da Casa…</p>
+        </div>
       </section>
 
-      <section class="home-breath" aria-labelledby="breath-title">
-        <img src="assets/images/casa-amoremio-clean-v2.webp" alt="Piscina da Casa Amoremio diante da praia e do mar" width="1672" height="941" loading="lazy" />
-        <div class="home-breath__shade" aria-hidden="true"></div>
-        <div class="home-breath__copy">
+      <section class="home-breath home-visual-section" aria-labelledby="breath-title" data-home-background="breath">
+        <div class="home-section__background" role="img" aria-label="Piscina da Casa Amoremio diante da praia e do mar"></div>
+        <div class="home-section__effects home-breath__shade" aria-hidden="true"></div>
+        <div class="home-section__content home-breath__copy">
           <h2 id="breath-title">Beleza que acalma.<br />Presença que fica.<br />Detalhes que são só <em>seus.</em></h2>
           <i aria-hidden="true"></i>
         </div>
       </section>
 
-      <section class="home-discovery" aria-labelledby="discovery-title">
-        <header class="home-section-heading">
+      <section class="home-discovery home-visual-section" aria-labelledby="discovery-title" data-home-background="search">
+        <div class="home-section__background" aria-hidden="true"></div><div class="home-section__effects home-discovery__effects" aria-hidden="true"></div>
+        <div class="home-section__content"><header class="home-section-heading">
           <span class="eyebrow">Descubra a Casa</span>
           <h2 id="discovery-title">Encontre o que você procura</h2>
         </header>
@@ -145,10 +149,11 @@
             <span class="home-discovery__jewel">AM</span>
           </div>
           <a class="button home-discovery__all" href="produtos.html">Ver todos os produtos</a>
-        </div>
+        </div></div>
       </section>
 
-      <section class="home-memories" aria-labelledby="memories-title">
+      <section class="home-memories home-visual-section" aria-labelledby="memories-title" data-home-background="editorial">
+        <div class="home-section__background" aria-hidden="true"></div><div class="home-section__effects home-memories__effects" aria-hidden="true"></div><div class="home-section__content home-memories__content">
         <div class="home-memories__copy">
           <span class="eyebrow">Histórias que permanecem</span>
           <h2 id="memories-title">Mais do que acessórios,<br /><em>são lembranças</em></h2>
@@ -156,7 +161,7 @@
           <p>Cada peça carrega sentimentos, momentos e conexões que fazem parte da sua história.</p>
           <a class="button" href="produtos.html">Conheça nossa história</a>
         </div>
-        <div class="home-memories__gallery" data-home-editorial aria-label="Seleção editorial de peças Amoremio"></div>
+        <div class="home-memories__gallery" data-home-editorial aria-label="Seleção editorial de peças Amoremio"></div></div>
       </section>
 
       <footer class="home-footer">
@@ -170,6 +175,7 @@
 
     <noscript><p class="noscript">A entrada animada requer JavaScript. <a href="#inicio-loja">Ir diretamente para a loja.</a></p></noscript>
     <script type="module" src="js/app.js?v=20260730-4"></script>
-    <script type="module" src="js/home-store.js?v=20260731-1"></script>
+    <script type="module" src="js/home-backgrounds.js?v=20260731-4"></script>
+    <script type="module" src="js/home-store.js?v=20260731-2"></script>
   </body>
 </html>
