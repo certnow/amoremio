@@ -27,14 +27,49 @@ export async function loadCategories() {
   const { data, error } = await supabase.from("categories").select("*").eq("active", true).order("name");
   if (error) throw error; return data || [];
 }
-export async function loadProducts({ category, material, sale, search, featured, limit } = {}) {
+export async function loadProductColors() {
+  const { data, error } = await supabase
+    .from("product_variants")
+    .select("name,value")
+    .order("value");
+  if (error) throw error;
+  return [
+    ...new Set(
+      (data || [])
+        .filter(
+          (variant) =>
+            /(cor|color|acabamento)/i.test(variant.name || "") ||
+            /(dourad|pratead|azul|verde|rosa|preto|branco|bege|marrom|vermelh|lilas|roxo)/i.test(
+              variant.value || "",
+            ),
+        )
+        .map((variant) => String(variant.value || "").trim())
+        .filter(Boolean),
+    ),
+  ].sort((a, b) => a.localeCompare(b, "pt-BR"));
+}
+export async function loadProducts({ category, material, color, priceRange, sale, search, featured, limit } = {}) {
   let query = supabase.from("products").select(PRODUCT_SELECT).eq("active", true).order("created_at", { ascending: false });
   if (search) { const term=search.replace(/[%(),]/g, ""); query = query.or(`name.ilike.%${term}%,sku.ilike.%${term}%,description.ilike.%${term}%,material.ilike.%${term}%,material_details.ilike.%${term}%`); }
   if (featured) query = query.eq("featured", true);
   if (limit) query = query.limit(limit);
   const { data, error } = await query; if (error) throw error;
   await resolveProductImages(data || []);
-  return (data || []).filter((product) => (!category || product.categories?.slug === category) && (!material || product.material === material) && (!sale || isSaleProduct(product)));
+  const fold = (value) => String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const requestedColor = fold(color);
+  return (data || []).filter((product) => {
+    const currentPrice = Number(product.promotional_price ?? product.price);
+    const matchesColor = !requestedColor || (product.product_variants || []).some((variant) => fold(variant.value).includes(requestedColor));
+    const matchesPrice = !priceRange
+      || (priceRange === "ate-100" && currentPrice <= 100)
+      || (priceRange === "100-200" && currentPrice >= 100 && currentPrice <= 200)
+      || (priceRange === "acima-200" && currentPrice > 200);
+    return (!category || product.categories?.slug === category)
+      && (!material || product.material === material)
+      && (!sale || isSaleProduct(product))
+      && matchesColor
+      && matchesPrice;
+  });
 }
 export async function loadProduct(identifier) {
   const field = /^[0-9a-f-]{36}$/i.test(identifier) ? "id" : "slug";

@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="css/responsive.css?v=20260730-4" />
     <link rel="stylesheet" href="css/store.css?v=20260730-4" />
     <link rel="stylesheet" href="css/boutique.css?v=20260730-7" />
+    <link rel="stylesheet" href="css/home-reference.css?v=20260731-1" />
     <link rel="stylesheet" href="css/commercial.css?v=20260730-1" />
   </head>
   <body id="top">
@@ -78,26 +79,97 @@
         <a class="home-hero__scroll" href="#colecoes" aria-label="Ver coleções"><svg viewBox="0 0 24 24"><path d="M12 4v15M6 13l6 6 6-6"></path></svg></a>
       </section>
 
-      <section class="home-section" id="colecoes"><header><span class="eyebrow">Explore a boutique</span><h2>Coleções</h2></header><div class="home-categories" data-home-categories></div></section>
-      <section class="boutique-floor" aria-labelledby="house-selections-title">
-        <header>
-          <span class="eyebrow">A boutique por dentro</span>
-          <h2 id="house-selections-title">Escolhas da Casa</h2>
-          <p>Uma seleção de peças escolhidas para apresentar a essência da Amoremio.</p>
+      <section class="home-collections" id="colecoes" aria-labelledby="collections-title">
+        <div class="home-collections__leaves" aria-hidden="true"></div>
+        <header class="home-section-heading">
+          <span class="eyebrow">Essência &amp; boutique</span>
+          <h2 id="collections-title">Coleções<br />que encantam</h2>
+          <i aria-hidden="true"></i>
         </header>
-        <p class="boutique-status" data-home-status aria-live="polite">Preparando a exposição…</p>
-        <div class="boutique-scene">
-          <img class="boutique-scene__background" src="assets/images/vitrine-escolhas-da-casa.webp" alt="Interior iluminado da Casa Amoremio com arcos, nichos e prateleiras" width="1672" height="941" loading="lazy" />
-          <div class="boutique-scene__light" aria-hidden="true"></div>
-          <div class="boutique-showcase" data-home-products></div>
+        <div class="home-glass home-collections__glass">
+          <div class="home-category-arches" data-home-categories></div>
         </div>
-        <a class="button" href="produtos.html">Ver todo o catálogo</a>
+        <div class="home-collections__water" aria-hidden="true"></div>
       </section>
-      <footer class="store-footer"><div><h2>Amoremio</h2><p>Acessórios e presentes escolhidos com delicadeza.</p></div><nav><a href="produtos.html">Coleções</a><a href="admin/index.html">Área administrativa</a></nav><div><p>Atendimento pelo WhatsApp<br />Brasília, DF</p></div><small class="store-footer__bottom">© 2026 Amoremio.</small></footer>
+
+      <section class="home-featured" aria-labelledby="featured-title">
+        <div class="home-glass home-featured__glass">
+          <div class="home-featured__copy">
+            <span class="eyebrow">Escolhas da Casa</span>
+            <h2 id="featured-title">Peças que<br />enaltecem <em>sua essência</em></h2>
+            <i aria-hidden="true"></i>
+            <p>Selecionamos cada detalhe para valorizar sua luz e acompanhar os momentos que importam.</p>
+            <a class="button" href="produtos.html">Conheça as novidades</a>
+          </div>
+          <div class="home-featured__products" data-home-products></div>
+        </div>
+        <p class="home-data-status" data-home-status aria-live="polite">Preparando as escolhas da Casa…</p>
+      </section>
+
+      <section class="home-breath" aria-labelledby="breath-title">
+        <img src="assets/images/casa-amoremio-clean-v2.webp" alt="Piscina da Casa Amoremio diante da praia e do mar" width="1672" height="941" loading="lazy" />
+        <div class="home-breath__shade" aria-hidden="true"></div>
+        <div class="home-breath__copy">
+          <h2 id="breath-title">Beleza que acalma.<br />Presença que fica.<br />Detalhes que são só <em>seus.</em></h2>
+          <i aria-hidden="true"></i>
+        </div>
+      </section>
+
+      <section class="home-discovery" aria-labelledby="discovery-title">
+        <header class="home-section-heading">
+          <span class="eyebrow">Descubra a Casa</span>
+          <h2 id="discovery-title">Encontre o que você procura</h2>
+        </header>
+        <div class="home-glass home-discovery__glass">
+          <nav class="home-discovery__links" aria-label="Atalhos do catálogo">
+            <a href="produtos.html"><span aria-hidden="true">✧</span>Lançamentos</a>
+            <a href="produtos.html?ordem=mais-vendidos"><span aria-hidden="true">♧</span>Mais vendidos</a>
+            <a href="produtos.html?categoria=presentes"><span aria-hidden="true">□</span>Presentes</a>
+            <a href="produtos.html?saldos=1"><span aria-hidden="true">◇</span>Promoções</a>
+          </nav>
+          <form class="home-discovery__form" action="produtos.html" method="get">
+            <label class="sr-only" for="discovery-search">Buscar por produto, coleção ou material</label>
+            <div class="home-discovery__search">
+              <input id="discovery-search" name="busca" type="search" placeholder="Buscar por produto, coleção ou material…" />
+              <button type="submit" aria-label="Buscar produtos"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 5 5"></path></svg></button>
+            </div>
+            <div class="home-discovery__filters">
+              <label><span>Categoria</span><select name="categoria" data-home-category-filter><option value="">Categoria</option></select></label>
+              <label><span>Material</span><select name="material" data-home-material-filter><option value="">Material</option></select></label>
+              <label><span>Cor</span><select name="cor" data-home-color-filter><option value="">Cor</option></select></label>
+              <label><span>Preço</span><select name="preco"><option value="">Preço</option><option value="ate-100">Até R$ 100</option><option value="100-200">R$ 100 a R$ 200</option><option value="acima-200">Acima de R$ 200</option></select></label>
+            </div>
+          </form>
+          <div class="home-discovery__object" aria-hidden="true">
+            <span class="home-discovery__plinth"></span>
+            <span class="home-discovery__jewel">AM</span>
+          </div>
+          <a class="button home-discovery__all" href="produtos.html">Ver todos os produtos</a>
+        </div>
+      </section>
+
+      <section class="home-memories" aria-labelledby="memories-title">
+        <div class="home-memories__copy">
+          <span class="eyebrow">Histórias que permanecem</span>
+          <h2 id="memories-title">Mais do que acessórios,<br /><em>são lembranças</em></h2>
+          <i aria-hidden="true"></i>
+          <p>Cada peça carrega sentimentos, momentos e conexões que fazem parte da sua história.</p>
+          <a class="button" href="produtos.html">Conheça nossa história</a>
+        </div>
+        <div class="home-memories__gallery" data-home-editorial aria-label="Seleção editorial de peças Amoremio"></div>
+      </section>
+
+      <footer class="home-footer">
+        <div class="home-footer__brand"><h2>Amoremio</h2><span>Acessórios</span><p>Detalhes escolhidos para acompanhar histórias.</p></div>
+        <nav aria-label="Institucional"><strong>Institucional</strong><a href="#inicio-loja">Sobre nós</a><a href="#colecoes">Nossa loja</a><a href="produtos.html">Coleções</a></nav>
+        <nav aria-label="Ajuda"><strong>Ajuda</strong><a href="produtos.html">Trocas e devoluções</a><a href="carrinho.html">Meu carrinho</a><a href="admin/index.html">Área administrativa</a></nav>
+        <div class="home-footer__contact"><strong>Atendimento</strong><a href="https://wa.me/5561992278585">WhatsApp: (61) 99227-8585</a><span>Brasília, DF</span></div>
+        <small>© 2026 Amoremio Acessórios. Todos os direitos reservados.</small>
+      </footer>
     </main>
 
     <noscript><p class="noscript">A entrada animada requer JavaScript. <a href="#inicio-loja">Ir diretamente para a loja.</a></p></noscript>
     <script type="module" src="js/app.js?v=20260730-4"></script>
-    <script type="module" src="js/home-store.js?v=20260730-14"></script>
+    <script type="module" src="js/home-store.js?v=20260731-1"></script>
   </body>
 </html>

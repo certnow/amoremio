@@ -2,6 +2,7 @@ import { supabase } from "./supabase-client.js";
 import { escapeHtml } from "./utils.js";
 
 const STATE_KEY = "amoremio:house-music-state";
+const SESSION_CLOSED_KEY = "amoremio:house-music-closed-session";
 const CONFIG_CHANGE_KEY = "amoremio:house-music-config-change";
 const HOME_FILE = /(?:^|\/)index\.html$|\/$/;
 
@@ -35,8 +36,9 @@ export async function initHouseMusic() {
   if (settings.music_scope === "home" && !HOME_FILE.test(location.pathname)) return;
   addStylesheet();
   const saved = localStorage.getItem(STATE_KEY);
-  const state = ["open", "minimized", "closed"].includes(saved) ? saved : settings.music_initial_state;
-  if (state === "closed") return;
+  if (saved === "closed") localStorage.removeItem(STATE_KEY);
+  if (sessionStorage.getItem(SESSION_CLOSED_KEY) === "1") return;
+  const state = ["open", "minimized"].includes(saved) ? saved : settings.music_initial_state;
   const validEmbed = spotifyEmbed(settings.music_spotify_url);
   const spotifyExternalUrl = validEmbed?.replace("/embed/", "/").replace("?utm_source=generator", "");
   const root = document.createElement("aside");
@@ -68,6 +70,7 @@ export async function initHouseMusic() {
   window.addEventListener("beforeunload", onPageHide);
   window.addEventListener("storage", onConfigurationChange);
   const open = () => {
+    sessionStorage.removeItem(SESSION_CLOSED_KEY);
     panel.hidden = false;
     toggle.setAttribute("aria-expanded", "true");
     localStorage.setItem(STATE_KEY, "open");
@@ -89,6 +92,6 @@ export async function initHouseMusic() {
   const minimize = () => { panel.hidden = true; toggle.setAttribute("aria-expanded", "false"); localStorage.setItem(STATE_KEY, "minimized"); toggle.focus(); };
   toggle.addEventListener("click", () => panel.hidden ? open() : minimize());
   root.querySelector("[data-music-minimize]").addEventListener("click", minimize);
-  root.querySelector("[data-music-close]").addEventListener("click", () => { pause(); embed.replaceChildren(); loaded = false; localStorage.setItem(STATE_KEY, "closed"); cleanup(); root.remove(); });
+  root.querySelector("[data-music-close]").addEventListener("click", () => { pause(); embed.replaceChildren(); loaded = false; localStorage.removeItem(STATE_KEY); sessionStorage.setItem(SESSION_CLOSED_KEY, "1"); cleanup(); root.remove(); });
   if (state === "open") open();
 }
