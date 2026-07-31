@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/curtain.css?v=20260730-4" />
     <link rel="stylesheet" href="css/responsive.css?v=20260730-4" />
     <link rel="stylesheet" href="css/store.css?v=20260730-4" />
-    <link rel="stylesheet" href="css/boutique.css?v=20260730-5" />
+    <link rel="stylesheet" href="css/boutique.css?v=20260730-6" />
     <link rel="stylesheet" href="css/commercial.css?v=20260730-1" />
   </head>
   <body id="top">
@@ -79,12 +79,25 @@
       </section>
 
       <section class="home-section" id="colecoes"><header><span class="eyebrow">Explore a boutique</span><h2>Coleções</h2></header><div class="home-categories" data-home-categories></div></section>
-      <section class="boutique-floor"><header><span class="eyebrow">A boutique por dentro</span><h2>Peças em exposição</h2><p>Produtos reais apresentados como parte da Casa Amoremio — em nichos, bandejas e expositores inspirados em uma boutique física.</p></header><p class="boutique-status" data-home-status aria-live="polite">Preparando a exposição…</p><div class="boutique-showcase" data-home-products></div><a class="button" href="produtos.html">Ver todo o catálogo</a></section>
+      <section class="boutique-floor" aria-labelledby="house-selections-title">
+        <header>
+          <span class="eyebrow">A boutique por dentro</span>
+          <h2 id="house-selections-title">Escolhas da Casa</h2>
+          <p>Uma seleção de peças escolhidas para apresentar a essência da Amoremio.</p>
+        </header>
+        <p class="boutique-status" data-home-status aria-live="polite">Preparando a exposição…</p>
+        <div class="boutique-scene">
+          <img class="boutique-scene__background" src="assets/images/vitrine-escolhas-da-casa.webp" alt="Interior iluminado da Casa Amoremio com arcos, nichos e prateleiras" width="1672" height="941" loading="lazy" />
+          <div class="boutique-scene__light" aria-hidden="true"></div>
+          <div class="boutique-showcase" data-home-products></div>
+        </div>
+        <a class="button" href="produtos.html">Ver todo o catálogo</a>
+      </section>
       <footer class="store-footer"><div><h2>Amoremio</h2><p>Acessórios e presentes escolhidos com delicadeza.</p></div><nav><a href="produtos.html">Coleções</a><a href="admin/index.html">Área administrativa</a></nav><div><p>Atendimento pelo WhatsApp<br />Brasília, DF</p></div><small class="store-footer__bottom">© 2026 Amoremio.</small></footer>
     </main>
 
     <noscript><p class="noscript">A entrada animada requer JavaScript. <a href="#inicio-loja">Ir diretamente para a loja.</a></p></noscript>
     <script type="module" src="js/app.js?v=20260730-4"></script>
-    <script type="module" src="js/home-store.js?v=20260730-13"></script>
+    <script type="module" src="js/home-store.js?v=20260730-14"></script>
   </body>
 </html>

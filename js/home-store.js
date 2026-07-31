@@ -11,26 +11,14 @@ const productRoot = document.querySelector("[data-home-products]");
 const status = document.querySelector("[data-home-status]");
 let displayedProducts = [];
 
-const displayType = (product, index) => {
-  const slug = product.categories?.slug || "";
-  if (slug.includes("brinco")) return "earring";
-  if (slug.includes("pulseira")) return "bracelet";
-  if (slug.includes("anel") || slug.includes("anei")) return "ring";
-  if (slug.includes("presilha")) return "niche";
-  if (slug.includes("inox")) return "shelf";
-  return ["niche", "shelf", "tray"][index % 3];
-};
-
 const boutiqueProduct = (product, index) => {
   const image = firstImage(product);
   const price = product.promotional_price ?? product.price;
-  const type = displayType(product, index);
   const detailUrl = `produto.html?produto=${encodeURIComponent(product.slug || product.id)}`;
   const hasVariants = (product.product_variants || []).length > 0;
   const title=publicProductTitle(product),sale=isSaleProduct(product),discount=discountPercent(product);
-  return `<article class="boutique-product boutique-product--${type}">
+  return `<article class="boutique-product boutique-product--slot-${index + 1}">
     <a class="boutique-product__stage" href="${detailUrl}" aria-label="Ver ${escapeHtml(title)}">
-      <span class="boutique-product__architecture" aria-hidden="true"></span>
       ${image ? `<img src="${escapeHtml(image.image_url)}" alt="${escapeHtml(image.alt_text || title)}" loading="lazy">` : '<span class="boutique-product__placeholder" aria-hidden="true">AM</span>'}${sale?`<span class="product-card__badge product-card__badge--sale">Saldo · ${discount}%</span>`:""}
     </a>
     <div class="boutique-product__information">
@@ -48,7 +36,7 @@ const boutiqueProduct = (product, index) => {
 try {
   const [categories, products] = await Promise.all([
     loadCategories(),
-    loadProducts({ featured: true, limit: 8 }),
+    loadProducts({ featured: true, limit: 4 }),
   ]);
 
   categoryRoot.innerHTML = categories.length
