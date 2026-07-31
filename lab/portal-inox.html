@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Casa Amoremio — Portal Inox. Uma instalação digital experimental dedicada às peças em aço inoxidável."
+    >
+    <meta name="theme-color" content="#e8dfd0">
+    <title>Portal Inox — Casa Amoremio</title>
+    <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" href="./css/portal-inox.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#portal-story">Ir para o conteúdo</a>
+
+    <main class="portal-experience" data-portal-root data-state="loading">
+      <div class="portal-viewport">
+        <div class="portal-static-composition" aria-hidden="true">
+          <span class="portal-static-arch portal-static-arch--outer"></span>
+          <span class="portal-static-arch portal-static-arch--inner"></span>
+          <span class="portal-static-glow"></span>
+          <img
+            class="portal-static-product"
+            src="./assets/portal-inox/product-ring-placeholder.png"
+            alt=""
+            width="1254"
+            height="1254"
+          >
+          <span class="portal-static-reflection"></span>
+        </div>
+
+        <div class="portal-canvas" data-portal-canvas aria-hidden="true"></div>
+        <div class="portal-grain" aria-hidden="true"></div>
+        <div class="portal-vignette" aria-hidden="true"></div>
+
+        <header class="portal-header">
+          <a class="portal-brand" href="../index.html" aria-label="Voltar para Amoremio">
+            <span class="portal-brand__name">Amoremio</span>
+            <span class="portal-brand__descriptor">Casa de acessórios</span>
+          </a>
+          <span class="portal-edition">Experimento 01 · Inox</span>
+        </header>
+
+        <p class="portal-status" data-portal-status role="status" aria-live="polite">
+          Preparando a experiência
+        </p>
+
+        <div class="portal-scroll-cue" aria-hidden="true">
+          <span>Deslize</span>
+          <i></i>
+        </div>
+
+        <div class="portal-progress" aria-hidden="true">
+          <span data-portal-progress></span>
+        </div>
+      </div>
+
+      <section class="portal-chapter portal-chapter--opening" aria-labelledby="portal-title">
+        <div class="portal-copy">
+          <p class="portal-eyebrow">Casa Amoremio apresenta</p>
+          <h1 id="portal-title">Portal <em>Inox</em></h1>
+        </div>
+      </section>
+
+      <section
+        class="portal-chapter portal-chapter--story"
+        id="portal-story"
+        aria-labelledby="portal-story-title"
+      >
+        <div class="portal-copy portal-copy--story">
+          <p class="portal-index">01 — Matéria</p>
+          <h2 id="portal-story-title">Feito para permanecer.</h2>
+          <p>
+            Peças em aço inoxidável escolhidas para acompanhar histórias,
+            movimentos e dias reais.
+          </p>
+        </div>
+      </section>
+
+      <section class="portal-chapter portal-chapter--closing" aria-label="Explorar a coleção">
+        <div class="portal-copy portal-copy--closing">
+          <p class="portal-index">02 — Escolhas da Casa</p>
+          <a class="portal-button" href="../produtos.html?categoria=inox">
+            <span>Explorar peças em inox</span>
+            <svg viewBox="0 0 48 16" aria-hidden="true">
+              <path d="M0 8h45M38 1l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <noscript>
+      <div class="portal-noscript">
+        A experiência visual precisa de JavaScript, mas você ainda pode
+        <a href="../produtos.html?categoria=inox">explorar as peças em inox</a>.
+      </div>
+    </noscript>
+
+    <script type="module" src="./js/portal-inox.js"></script>
+  </body>
+</html>
