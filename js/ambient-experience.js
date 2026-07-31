@@ -1,6 +1,7 @@
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const weakDevice = (navigator.hardwareConcurrency || 4) <= 2;
 const visualSections = [...document.querySelectorAll(".home-visual-section")];
+const glassPanels = [...document.querySelectorAll(".home-glass")];
 
 let renderer;
 let scene;
@@ -13,6 +14,7 @@ let pointerX = 0;
 let pointerY = 0;
 let smoothX = 0;
 let smoothY = 0;
+let scrollFrame = 0;
 
 function updatePresence(event) {
   pointerX = (event.clientX / innerWidth) * 2 - 1;
@@ -23,6 +25,77 @@ function updatePresence(event) {
   const bounds = section.getBoundingClientRect();
   section.style.setProperty("--presence-x", `${event.clientX - bounds.left}px`);
   section.style.setProperty("--presence-y", `${event.clientY - bounds.top}px`);
+}
+
+function tiltElement(element, event, strength) {
+  const bounds = element.getBoundingClientRect();
+  const x = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width));
+  const y = Math.max(0, Math.min(1, (event.clientY - bounds.top) / bounds.height));
+  element.style.setProperty(strength === 5 ? "--glass-y" : "--card-y", `${(x - .5) * strength}deg`);
+  element.style.setProperty(strength === 5 ? "--glass-x" : "--card-x", `${(.5 - y) * strength * .75}deg`);
+  if (strength === 5) {
+    element.style.setProperty("--shine-x", `${x * 100}%`);
+    element.style.setProperty("--shine-y", `${y * 100}%`);
+  }
+  element.classList.add("is-alive");
+}
+
+function resetTilt(element, glass = false) {
+  element.style.setProperty(glass ? "--glass-x" : "--card-x", "0deg");
+  element.style.setProperty(glass ? "--glass-y" : "--card-y", "0deg");
+  element.classList.remove("is-alive");
+}
+
+function updateScrollDepth() {
+  scrollFrame = 0;
+  const viewportCenter = innerHeight / 2;
+  visualSections.forEach((section) => {
+    const bounds = section.getBoundingClientRect();
+    const distance = (bounds.top + bounds.height / 2 - viewportCenter) / innerHeight;
+    const shift = Math.max(-42, Math.min(42, distance * -28));
+    const scale = 1.06 + Math.max(0, .012 - Math.abs(distance) * .004);
+    section.style.setProperty("--scene-shift", `${shift}px`);
+    section.style.setProperty("--scene-scale", scale.toFixed(3));
+  });
+}
+
+function queueScrollDepth() {
+  if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScrollDepth);
+}
+
+function prepareLivingHouse() {
+  if (reducedMotion.matches) return;
+  document.body.classList.add("casa-viva");
+
+  const waterSection = document.querySelector(".home-breath");
+  if (waterSection && !waterSection.querySelector(".home-water-reflection")) {
+    const water = document.createElement("div");
+    water.className = "home-water-reflection";
+    water.setAttribute("aria-hidden", "true");
+    waterSection.append(water);
+  }
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => entry.target.classList.toggle("is-in-view", entry.isIntersecting));
+  }, { rootMargin: "8% 0px -12%", threshold: .12 });
+  visualSections.forEach((section) => revealObserver.observe(section));
+
+  glassPanels.forEach((panel) => {
+    panel.addEventListener("pointermove", (event) => tiltElement(panel, event, 5), { passive: true });
+    panel.addEventListener("pointerleave", () => resetTilt(panel, true), { passive: true });
+  });
+
+  document.addEventListener("pointermove", (event) => {
+    const card = event.target.closest?.(".home-feature-card, .home-memory-card");
+    if (card) tiltElement(card, event, 7);
+  }, { passive: true });
+  document.addEventListener("pointerout", (event) => {
+    const card = event.target.closest?.(".home-feature-card, .home-memory-card");
+    if (card && !card.contains(event.relatedTarget)) resetTilt(card);
+  }, { passive: true });
+
+  addEventListener("scroll", queueScrollDepth, { passive: true });
+  updateScrollDepth();
 }
 
 function updateTouch(event) {
@@ -141,4 +214,5 @@ async function createExperience() {
   }
 }
 
+prepareLivingHouse();
 createExperience();
