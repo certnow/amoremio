@@ -67,14 +67,6 @@ function prepareLivingHouse() {
   if (reducedMotion.matches) return;
   document.body.classList.add("casa-viva");
 
-  const waterSection = document.querySelector(".home-breath");
-  if (waterSection && !waterSection.querySelector(".home-water-reflection")) {
-    const water = document.createElement("div");
-    water.className = "home-water-reflection";
-    water.setAttribute("aria-hidden", "true");
-    waterSection.append(water);
-  }
-
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => entry.target.classList.toggle("is-in-view", entry.isIntersecting));
   }, { rootMargin: "8% 0px -12%", threshold: .12 });

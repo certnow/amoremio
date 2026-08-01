@@ -96,42 +96,6 @@
   transform: translateX(70%);
 }
 
-.home-water-reflection {
-  position: absolute;
-  z-index: 2;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 52%;
-  overflow: hidden;
-  opacity: .45;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  mask-image: linear-gradient(to bottom, transparent, #000 28%);
-}
-
-.home-water-reflection::before,
-.home-water-reflection::after {
-  position: absolute;
-  inset: -20% -10%;
-  background:
-    repeating-radial-gradient(ellipse at 50% 120%, transparent 0 13px, rgb(255 240 207 / 16%) 14px 15px, transparent 17px 28px);
-  content: "";
-  filter: blur(.35px);
-  animation: casa-water-drift 9s linear infinite;
-}
-
-.home-water-reflection::after {
-  opacity: .6;
-  transform: scaleX(1.25) translateX(-3%);
-  animation-duration: 13s;
-  animation-direction: reverse;
-}
-
-@keyframes casa-water-drift {
-  to { transform: translate3d(4%, 1.2%, 0) scaleX(1.04); }
-}
-
 .home-visual-section {
   --presence-x: 50%;
   --presence-y: 45%;
@@ -157,7 +121,6 @@
   .casa-viva .home-glass,
   .casa-viva .home-feature-card,
   .casa-viva .home-memory-card { transform: none; }
-  .home-water-reflection { height: 44%; opacity: .3; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -168,5 +131,4 @@
   .casa-viva .home-glass,
   .casa-viva .home-feature-card,
   .casa-viva .home-memory-card { transform: none; transition: none; }
-  .home-water-reflection { display: none; }
 }
